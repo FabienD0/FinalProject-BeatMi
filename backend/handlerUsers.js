@@ -246,7 +246,7 @@ const removeLikeBeatAllUser = async (req, res) => {
       res.status(404).json({ status: 404, message: "Error" });
     }
 
-    // client.close();
+    client.close();
   } catch (err) {
     res.status(500).json({ status: 500, message: err.message });
   }

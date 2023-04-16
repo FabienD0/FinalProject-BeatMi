@@ -26,7 +26,7 @@ const SaveBeat = ({ isModalOpen, speed, setIsBeatSaved }) => {
     chordName,
     steps,
   } = useContext(PlayerContext);
-  const { user } = useContext(GeneralContext);
+  const { user, setRefreshBeats } = useContext(GeneralContext);
   const [moodNameHover, setMoodNameHover] = useState("");
   const [beatInfo, setBeatInfo] = useState({
     title: "",
@@ -52,6 +52,7 @@ const SaveBeat = ({ isModalOpen, speed, setIsBeatSaved }) => {
       steps: steps,
       artist: user.username,
       likedBy: [],
+      comments: [],
     };
 
     //Add beat to the database
@@ -66,6 +67,7 @@ const SaveBeat = ({ isModalOpen, speed, setIsBeatSaved }) => {
       .then(() => {
         setSaveMessage("Beat Added");
         setIsBeatSaved(true);
+        setRefreshBeats((prev) => !prev);
       })
       .catch(() => navigate("/404"));
     //Add beat ID to the user profile

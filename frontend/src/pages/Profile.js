@@ -14,8 +14,14 @@ const Profile = () => {
   const [section, setSection] = useState("personal");
   const [isModifyAvatar, setIsModifyAvatar] = useState(false);
   const [isConfirmDelete, setIsConfirmDelete] = useState(false);
-  const { user, setUser, setRefreshUser, refreshUser, cookieValue, allBeats } =
-    useContext(GeneralContext);
+  const {
+    user,
+    setUser,
+    setRefreshUser,
+    setRefreshBeats,
+    cookieValue,
+    allBeats,
+  } = useContext(GeneralContext);
   const navigate = useNavigate();
 
   /* Select wich section we want*/
@@ -41,7 +47,7 @@ const Profile = () => {
     return totalLikes;
   };
 
-  /*Refresh user */
+  /*Refresh user & beats */
   useLayoutEffect(() => {
     setRefreshUser((prev) => !prev);
   }, []);
