@@ -9,18 +9,12 @@ import { NavLink } from "react-router-dom";
 import { GeneralContext, URL } from "../../components/context/GeneralContext";
 
 const SmallCardTracks = ({ beatId, user, setRefreshUser }) => {
-  //Cookie JWT
-  const cookieValue = document.cookie
-    .split(";")
-    .find((row) => row.startsWith("jwt"))
-    ?.split("=")[1];
-
-  const { allBeats } = useContext(GeneralContext);
+  const { allBeats, cookieValue } = useContext(GeneralContext);
   const [isLoading, setIsLoading] = useState(false);
 
   const [getBeatById] = allBeats.filter((beat) => beat._id === beatId);
 
-  /* Remove beat  function */
+  /* Remove Beat  Function */
   const handleRemoveBeat = () => {
     setIsLoading(true);
     //Remove beat from beats database
@@ -57,6 +51,9 @@ const SmallCardTracks = ({ beatId, user, setRefreshUser }) => {
       .catch((err) => console.log(err));
   };
 
+  /* Modify Beat Function */
+  const handleModifyBeat = () => {};
+
   return (
     <Container>
       <ContainerInfo>
@@ -68,7 +65,7 @@ const SmallCardTracks = ({ beatId, user, setRefreshUser }) => {
           </ContainerInfoLikeComment>
           <ContainerInfoLikeComment>
             <BiCommentDetail />
-            <p>42</p>
+            <p>{getBeatById.comments.length}</p>
           </ContainerInfoLikeComment>
         </ContainerInfoBeat>
         <ContainerIcon>
@@ -126,6 +123,10 @@ const BeatName = styled.h3`
 const ContainerInfoBeat = styled.div`
   display: flex;
   gap: 1rem;
+
+  p {
+    margin: 0rem 0.4rem;
+  }
 `;
 
 const ContainerInfoLikeComment = styled.div`
