@@ -179,6 +179,58 @@ const saveBeat = async (req, res) => {
 };
 
 /*==================================
+        Modify beat on database
+====================================*/
+const modifyBeat = async (req, res) => {
+  const { id } = req.params;
+  const {
+    speed,
+    drumAndMelody,
+    chordToPiano,
+    octave,
+    drumKit,
+    melodyKit,
+    chordName,
+    steps,
+    isEdit,
+  } = req.body.newDataBeat;
+
+  try {
+    const client = new MongoClient(MONGO_URI, options);
+    await client.connect();
+
+    const db = client.db("BeatMi");
+
+    const beats = await db.collection("beats").updateOne(
+      { _id: id },
+      {
+        $set: {
+          speed: speed,
+          drumAndMelody: drumAndMelody,
+          chordToPiano: chordToPiano,
+          octave: octave,
+          drumKit: drumKit,
+          melodyKit: melodyKit,
+          chordName: chordName,
+          steps: steps,
+          isEdit: isEdit,
+        },
+      }
+    );
+
+    if (beats.acknowledged) {
+      res.status(200).json({ status: 200, message: "Beat modified" });
+    } else {
+      res.status(404).json({ status: 404, message: "Error" });
+    }
+
+    client.close();
+  } catch (err) {
+    res.status(500).json({ status: 500, message: err.message });
+  }
+};
+
+/*==================================
         Add a comment on a beat
 ====================================*/
 const addCommentBeat = async (req, res) => {
@@ -314,4 +366,5 @@ module.exports = {
   deleteAllBeatByUser,
   addCommentBeat,
   deleteCommentBeat,
+  modifyBeat,
 };

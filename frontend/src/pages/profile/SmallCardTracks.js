@@ -52,7 +52,9 @@ const SmallCardTracks = ({ beatId, user, setRefreshUser }) => {
   };
 
   /* Modify Beat Function */
-  const handleModifyBeat = () => {};
+  const handleModifyBeat = () => {
+    getBeatById.isEdit = !getBeatById.isEdit;
+  };
 
   return (
     <Container>
@@ -69,9 +71,13 @@ const SmallCardTracks = ({ beatId, user, setRefreshUser }) => {
           </ContainerInfoLikeComment>
         </ContainerInfoBeat>
         <ContainerIcon>
-          <button style={{ all: "unset" }} onClick={handleRemoveBeat}>
+          <NavLink
+            style={{ all: "unset" }}
+            onClick={handleModifyBeat}
+            to={`/beatmaker/${beatId}`}
+          >
             <Edit />
-          </button>
+          </NavLink>
           <NavLink style={{ all: "unset" }} to={`/beatmaker/${beatId}`}>
             <Play />
           </NavLink>

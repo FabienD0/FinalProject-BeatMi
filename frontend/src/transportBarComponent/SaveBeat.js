@@ -53,9 +53,10 @@ const SaveBeat = ({ isModalOpen, speed, setIsBeatSaved }) => {
       artist: user.username,
       likedBy: [],
       comments: [],
+      isEdit: false,
     };
 
-    //Add beat to the database
+    /* Add Beat to the Database */
     fetch(`${URL}/api/saveBeat`, {
       method: "POST",
       headers: {

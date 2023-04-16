@@ -2,13 +2,18 @@ import styled from "styled-components";
 import Colors from "../utils/Colors";
 import { GiSaveArrow } from "react-icons/gi";
 import { FaPlay, FaStop } from "react-icons/fa";
-import { MdFavoriteBorder, MdFavorite } from "react-icons/md";
 import { BiCommentDetail } from "react-icons/bi";
+import {
+  AiOutlineLoading3Quarters,
+  AiOutlineCheckCircle,
+} from "react-icons/ai";
+import { MdFavoriteBorder, MdFavorite, MdEditSquare } from "react-icons/md";
 import { useContext, useEffect, useState } from "react";
 import ModalTransportBar from "./modals/ModalTransportBar";
 import { useNavigate, useParams } from "react-router-dom";
 import { GeneralContext, URL } from "./context/GeneralContext";
 import { addLike, removeLike } from "../utils/function";
+import { PlayerContext } from "../components/context/PlayerContext";
 
 const TransportBar = ({
   setIsPlaying,
@@ -20,11 +25,22 @@ const TransportBar = ({
   setCurrentPage,
   allBeats,
 }) => {
-  const { user, setRefreshUser } = useContext(GeneralContext);
+  const {
+    drumAndMelody,
+    chordToPiano,
+    octave,
+    drumKit,
+    melodyKit,
+    chordName,
+    steps,
+  } = useContext(PlayerContext);
+  const { user, setRefreshUser, cookieValue } = useContext(GeneralContext);
   const { id } = useParams();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalCategory, setModalCategory] = useState("");
   const [isBeatSaved, setIsBeatSaved] = useState(false);
+  const [beatModifyStatus, setBeatModifyStatus] = useState("");
+  const [isBeatModify, setIsBeatModify] = useState(false);
   const [isBeatLiked, setIsBeatLiked] = useState(() => {
     const [beatLikedFilter] =
       user?.beatLiked?.filter((beat) => beat === id) ?? [];
@@ -37,6 +53,10 @@ const TransportBar = ({
   useEffect(() => {
     if (id) {
       setIsBeatSaved(true);
+      const [beatModifyFilter] = allBeats.filter((beat) => beat._id === id);
+      if (beatModifyFilter.isEdit) {
+        setIsBeatModify(true);
+      }
     }
   }, [id]);
 
@@ -81,7 +101,7 @@ const TransportBar = ({
     }
   };
 
-  //Function to handle the PLAY Button
+  /* Function to Handle the Play Button */
   const handleClickPlay = () => {
     if (isPlaying) {
       setIsPlaying(false);
@@ -94,6 +114,36 @@ const TransportBar = ({
     }
   };
 
+  /* Function to Modify the Best */
+  const handleModifyBeat = () => {
+    setBeatModifyStatus("loading");
+    const newDataBeat = {
+      speed: speed,
+      drumAndMelody: drumAndMelody,
+      chordToPiano: chordToPiano,
+      octave: octave,
+      drumKit: drumKit,
+      melodyKit: melodyKit,
+      chordName: chordName,
+      steps: steps,
+      isEdit: false,
+    };
+
+    fetch(`${URL}/api/modifyBeat/${id}`, {
+      method: "PATCH",
+      headers: {
+        Authorization: cookieValue,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ newDataBeat: newDataBeat }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setBeatModifyStatus("completed");
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <Container isModalOpen={isModalOpen}>
       <ModalTransportBar
@@ -104,17 +154,33 @@ const TransportBar = ({
         setModalCategory={setModalCategory}
         setIsBeatSaved={setIsBeatSaved}
       />
-      <ContainerSaveButton
-        onClick={handleSave}
-        modalCategory={modalCategory}
-        disabled={isBeatSaved}
-      >
-        <SaveIcon />
-      </ContainerSaveButton>
+      {/* Save */}
+      {!isBeatModify && (
+        <ContainerSaveButton
+          onClick={handleSave}
+          modalCategory={modalCategory}
+          disabled={isBeatSaved}
+        >
+          <SaveIcon />
+        </ContainerSaveButton>
+      )}
+      {/* Modify */}
+      {isBeatModify && (
+        <ContainerModifyButton
+          onClick={handleModifyBeat}
+          disabled={beatModifyStatus === "completed"}
+        >
+          {beatModifyStatus === "" && <IconModify />}
+          {beatModifyStatus === "loading" && <LoadingIcon />}
+          {beatModifyStatus === "completed" && <IconCheckGood />}
+        </ContainerModifyButton>
+      )}
+      {/* Play */}
       <ContainerPlayButton onClick={handleClickPlay} isPlaying={isPlaying}>
         {!isPlaying && <PlayIcon />}
         {isPlaying && <StopIcon />}
       </ContainerPlayButton>
+      {/* Comment */}
       <ContainerCommentButton
         disabled={!id || !user}
         modalCategory={modalCategory}
@@ -122,6 +188,8 @@ const TransportBar = ({
       >
         <IconComment modal={isModalOpen.toString()} />
       </ContainerCommentButton>
+
+      {/* Like */}
       <ContainerButtonLike
         onClick={handleLike}
         isliked={isBeatLiked}
@@ -152,6 +220,10 @@ const Container = styled.div`
 `;
 
 const SaveIcon = styled(GiSaveArrow)`
+  color: #c0d1ed;
+`;
+
+const IconModify = styled(MdEditSquare)`
   color: #c0d1ed;
 `;
 
@@ -229,6 +301,10 @@ const IconComment = styled(BiCommentDetail)`
   color: #5b87c8;
 `;
 
+const IconCheckGood = styled(AiOutlineCheckCircle)`
+  color: #0bdb62;
+`;
+
 const ContainerSaveButton = styled.button`
   all: unset;
   display: flex;
@@ -292,5 +368,50 @@ const ContainerCommentButton = styled.button`
 
   :disabled {
     opacity: 0.4;
+  }
+`;
+
+const ContainerModifyButton = styled.button`
+  all: unset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 5rem;
+  height: 3rem;
+  border-radius: 20px;
+  background: #393e46;
+  font-size: 1.5rem;
+  box-shadow: ${(props) =>
+    props.modalCategory === "comment"
+      ? "inset 5px 5px 10px #202327, inset -5px -5px 10px #525965"
+      : "8px 8px 18px #202327, -5px -5px 5px #525965"};
+
+  :hover {
+    cursor: pointer;
+    font-size: ${(props) => (props.modal ? "1.5rem" : "1.7rem")};
+  }
+
+  :active {
+    box-shadow: inset 5px 5px 10px #202327, inset -5px -5px 10px #525965;
+    opacity: 0.6;
+  }
+
+  :disabled {
+    opacity: 0.4;
+  }
+`;
+
+const LoadingIcon = styled(AiOutlineLoading3Quarters)`
+  color: ${Colors.gray};
+  animation: rotation 1.5s infinite linear;
+
+  @keyframes rotation {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
   }
 `;

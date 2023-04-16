@@ -20,6 +20,7 @@ const {
   deleteAllBeatByUser,
   addCommentBeat,
   deleteCommentBeat,
+  modifyBeat,
 } = require("./handlersBeats");
 const {
   changeAvatar,
@@ -64,6 +65,11 @@ express()
   .patch("/api/likeBeat", likeBeat)
   .patch("/api/removeLikeBeat", removeLikeBeat)
   .patch("/api/addCommentBeat", addCommentBeat)
+  .patch(
+    "/api/modifyBeat/:id",
+    passport.authenticate("jwt", { session: false }),
+    modifyBeat
+  )
   .delete(
     "/api/deleteBeat/:id",
     passport.authenticate("jwt", { session: false }),
