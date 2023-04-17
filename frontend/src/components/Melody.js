@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import Colors, { handleColor } from "../utils/Colors";
 import { arrayNote } from "../utils/data";
@@ -60,10 +60,29 @@ const Melody = ({ steps, currentPage }) => {
   };
 
   /* Press on a GRID to activate */
-  const toggleStep = (line, step) => {
+  const toggleStep = (line, step, e) => {
+    //Choose the velocity based on wich mouse button
+    let velocity;
+    switch (true) {
+      case e.button === 0:
+        velocity = 1;
+        break;
+      case e.button === 1:
+        velocity = 0.5;
+        break;
+      case e.button === 2:
+        velocity = 0.25;
+        break;
+    }
+    //play the note on click
     const previewNote = convertPadNumberToNote(line) + octave;
     if (!sequence[line][step].activated) {
-      playerMelody.triggerAttackRelease(previewNote, "16n");
+      playerMelody.triggerAttackRelease(
+        previewNote,
+        "16n",
+        undefined,
+        velocity
+      );
     }
     step = step + (currentPage - 1) * 16;
     const sequenceCopy = [...sequence];
@@ -71,6 +90,7 @@ const Melody = ({ steps, currentPage }) => {
     sequenceCopy[line][step] = {
       triggered,
       activated: !activated,
+      velocity: velocity,
       instrument: "melody",
     };
     setSequence(sequenceCopy);
@@ -91,7 +111,7 @@ const Melody = ({ steps, currentPage }) => {
     }
   }, [clearInstrument]);
 
-  //Update when add Steps
+  /* Update when add steps */
   useEffect(() => {
     setSequence(drumAndMelody.melody);
   }, [drumAndMelody]);
@@ -130,9 +150,22 @@ const Melody = ({ steps, currentPage }) => {
               activated={currentSteps[i][j]["activated"]}
               triggered={currentSteps[i][j]["triggered"]}
               onClick={(e) => {
-                toggleStep(i, j);
+                toggleStep(i, j, e);
               }}
-              colorPad={() => handleColor(4, currentSteps[i][j].triggered, i)}
+              onAuxClick={(e) => {
+                toggleStep(i, j, e);
+              }}
+              onContextMenu={(e) => {
+                e.preventDefault();
+              }}
+              colorPad={() =>
+                handleColor(
+                  4,
+                  currentSteps[i][j].triggered,
+                  i,
+                  currentSteps[i][j].velocity
+                )
+              }
               scaleHelper={scale.includes(convertPadNumberToNote(i))}
             />
           ))

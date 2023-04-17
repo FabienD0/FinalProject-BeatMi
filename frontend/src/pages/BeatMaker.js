@@ -14,7 +14,6 @@ import {
   initialCellStateDrum,
   initialCellStateMelody,
 } from "../utils/initialStates";
-import { GeneralContext } from "../components/context/GeneralContext";
 
 const BeatMaker = ({ allBeats }) => {
   //Context
@@ -85,6 +84,7 @@ const BeatMaker = ({ allBeats }) => {
       ...drumAndMelodyUpdate.melody,
     ];
     setSequence(sequenceCopy);
+    console.log(sequenceCopy);
     setIsLoading(false);
   };
 
@@ -127,16 +127,22 @@ const BeatMaker = ({ allBeats }) => {
   const nextStep = (time) => {
     for (let i = 0; i < sequence.length; i++) {
       for (let y = 0; y < sequence[i].length; y++) {
-        const { triggered, activated, instrument } = sequence[i][y];
+        const { triggered, activated, velocity, instrument } = sequence[i][y];
         sequence[i][y] = {
           activated,
           triggered: y === time,
+          velocity,
           instrument: sequence[i][y].instrument,
         };
         if (triggered && activated && instrument === "drum") {
-          playerDrum.triggerAttackRelease(drumNotes[i], 2);
+          playerDrum.triggerAttackRelease(drumNotes[i], 2, undefined, velocity);
         } else if (triggered && activated && instrument === "melody") {
-          playerMelody.triggerAttackRelease(melodyNotes[i - 4], "16n");
+          playerMelody.triggerAttackRelease(
+            melodyNotes[i - 4],
+            "16n",
+            undefined,
+            velocity
+          );
         }
       }
     }

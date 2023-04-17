@@ -34,13 +34,27 @@ const Drums = ({ steps, currentPage }) => {
   }
 
   /* Press on a GRID to activate */
-  const toggleStep = (line, step) => {
+  const toggleStep = (line, step, e) => {
+    //Choose the velocity based on wich mouse button
+    let velocity;
+    switch (true) {
+      case e.button === 0:
+        velocity = 1;
+        break;
+      case e.button === 1:
+        velocity = 0.5;
+        break;
+      case e.button === 2:
+        velocity = 0.25;
+        break;
+    }
     step = step + (currentPage - 1) * 16;
     const sequenceCopy = [...sequence];
     const { triggered, activated } = sequenceCopy[line][step];
     sequenceCopy[line][step] = {
       triggered,
       activated: !activated,
+      velocity: velocity,
       instrument: "drum",
     };
     setSequence(sequenceCopy);
@@ -90,10 +104,23 @@ const Drums = ({ steps, currentPage }) => {
               key={i + j}
               activated={currentSteps[i][j]["activated"]}
               triggered={currentSteps[i][j]["triggered"]}
-              onClick={() => {
-                toggleStep(i, j);
+              onClick={(e) => {
+                toggleStep(i, j, e);
               }}
-              colorPad={() => handleColor(i, currentSteps[i][j].triggered)}
+              onAuxClick={(e) => {
+                toggleStep(i, j, e);
+              }}
+              onContextMenu={(e) => {
+                e.preventDefault();
+              }}
+              colorPad={() =>
+                handleColor(
+                  i,
+                  currentSteps[i][j].triggered,
+                  undefined,
+                  currentSteps[i][j].velocity
+                )
+              }
             ></Grid>
           ))
         )}

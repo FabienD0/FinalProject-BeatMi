@@ -11,6 +11,7 @@ import Overlay from "./components/Overlay";
 import Beats from "./pages/Beats";
 import Profile from "./pages/Profile";
 import LogIn from "./pages/LogIn";
+import Piano from "./pages/Piano";
 import { GeneralContext } from "./components/context/GeneralContext";
 
 const App = () => {
@@ -43,6 +44,7 @@ const App = () => {
             />
             <Route path="/profile" element={<Profile />} />
             <Route path="/login" element={<LogIn />} />
+            <Route path="/piano" element={<Piano />} />
             <Route path="/404" element={<ErrorPage />} />
             <Route path="*" element={<ErrorPage />} />
           </Routes>
