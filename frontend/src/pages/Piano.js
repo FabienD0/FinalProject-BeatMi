@@ -1,6 +1,11 @@
 import styled from "styled-components";
 import Colors from "../utils/Colors";
-import { KEY_TO_NOTE, VALID_KEYS, pianoKey } from "../utils/data";
+import {
+  NOTE_TO_KEY_SHARP,
+  KEY_TO_NOTE,
+  VALID_KEYS,
+  pianoKey,
+} from "../utils/data";
 import { useState } from "react";
 import { useContext } from "react";
 import { PlayerContext } from "../components/context/PlayerContext";
@@ -23,7 +28,10 @@ const Piano = () => {
     let note = "";
 
     if (typeKey === "black") {
-      note = pianoKey[parseInt(e.target.id)].key + "#";
+      note =
+        pianoKey[parseInt(e.target.id)].key.charAt(0) +
+        "#" +
+        pianoKey[parseInt(e.target.id)].key.charAt(1);
     } else {
       note = e.target.id;
     }
@@ -97,6 +105,11 @@ const Piano = () => {
     }
   }, [playerChords]);
 
+  /* Function to get the keyboard key from the sharp note */
+  const getKeyboardKey = (index) => {
+    return NOTE_TO_KEY_SHARP.map((note) => note[index]);
+  };
+
   return (
     <Container>
       <ContainerTitle>
@@ -168,8 +181,11 @@ const Piano = () => {
                   className={key.key}
                   onMouseUp={(e) => handleMouseUp(e, "black", index)}
                   onMouseDown={(e) => handleMouseDown(e, "black", index)}
-                ></BlackKey>
+                >
+                  <p>{getKeyboardKey(index)}</p>
+                </BlackKey>
               )}
+              <p>{key.keyboard}</p>
             </WhiteKey>
           ))}
         </ContainerPiano>
@@ -376,6 +392,18 @@ const WhiteKey = styled.div`
   :hover {
     cursor: pointer;
   }
+
+  p {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    font-size: 1.5rem;
+    text-align: center;
+    height: 100%;
+    pointer-events: none;
+    padding: 1rem;
+    user-select: none;
+  }
 `;
 
 const BlackKey = styled.div`
@@ -399,6 +427,11 @@ const BlackKey = styled.div`
   &.active {
     border-bottom-width: 3px;
     top: 0;
+  }
+
+  p {
+    color: white;
+    font-size: 1rem;
   }
 
   :hover {

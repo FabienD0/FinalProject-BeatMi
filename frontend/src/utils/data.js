@@ -19,20 +19,20 @@ export const chordTonalityData = ["maj", "min", "dim", "sus4", "sus2", "aug"];
 
 //Piano Page
 export const pianoKey = [
-  { key: "C4", color: "#f399b0" },
-  { key: "D4", color: "#15c6fc" },
-  { key: "E4", color: "#fdd001" },
-  { key: "F4", color: "#becb01" },
-  { key: "G4", color: "#0055d6" },
-  { key: "A4", color: "#c30302" },
-  { key: "B4", color: "#f19800" },
-  { key: "C5", color: "#f399b0" },
-  { key: "D5", color: "#15c6fc" },
-  { key: "E5", color: "#fdd001" },
-  { key: "F5", color: "#becb01" },
-  { key: "G5", color: "#0055d6" },
-  { key: "A5", color: "#c30302" },
-  { key: "B5", color: "#f19800" },
+  { key: "C4", color: "#f399b0", keyboard: "Q" },
+  { key: "D4", color: "#15c6fc", keyboard: "W" },
+  { key: "E4", color: "#fdd001", keyboard: "E" },
+  { key: "F4", color: "#becb01", keyboard: "R" },
+  { key: "G4", color: "#0055d6", keyboard: "T" },
+  { key: "A4", color: "#c30302", keyboard: "Y" },
+  { key: "B4", color: "#f19800", keyboard: "U" },
+  { key: "C5", color: "#f399b0", keyboard: "I" },
+  { key: "D5", color: "#15c6fc", keyboard: "O" },
+  { key: "E5", color: "#fdd001", keyboard: "P" },
+  { key: "F5", color: "#becb01", keyboard: "Z" },
+  { key: "G5", color: "#0055d6", keyboard: "X" },
+  { key: "A5", color: "#c30302", keyboard: "C" },
+  { key: "B5", color: "#f19800", keyboard: "V" },
 ];
 
 export const KEY_TO_NOTE = [
@@ -62,6 +62,19 @@ export const KEY_TO_NOTE = [
   { c: "A5" },
   { f: "A#5", key: "black", id: "5" },
   { v: "B5" },
+];
+
+export const NOTE_TO_KEY_SHARP = [
+  { 0: "2" },
+  { 1: "3" },
+  { 3: "5" },
+  { 4: "6" },
+  { 5: "7" },
+  { 7: "9" },
+  { 8: "0" },
+  { 10: "S" },
+  { 11: "D" },
+  { 12: "F" },
 ];
 
 export const VALID_KEYS = [

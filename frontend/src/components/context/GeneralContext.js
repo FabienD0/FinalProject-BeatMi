@@ -1,7 +1,10 @@
 import { createContext, useEffect, useState } from "react";
 
 export const GeneralContext = createContext(null);
+
 export const URL = process.env.REACT_APP_SERVER_URL;
+export const CLOUDINARY_URL = process.env.REACT_APP_CLOUDINARY_URL;
+export const PRESET_NAME = process.env.REACT_APP_PRESET_NAME;
 
 export const GeneralProvider = ({ children }) => {
   //Cookie JWT

@@ -154,6 +154,15 @@ const changeAvatar = async (req, res) => {
         { $set: { avatar: req.body.avatar } }
       );
 
+    if (req.body.addToUser) {
+      const customAvatar = await db
+        .collection("users")
+        .updateOne(
+          { email: req.body.email },
+          { $push: { customAvatar: req.body.avatar } }
+        );
+    }
+
     if (avatar.acknowledged) {
       res.status(200).json({ status: 200, message: "Avatar changed" });
     } else {

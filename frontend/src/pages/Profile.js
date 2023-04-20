@@ -13,6 +13,7 @@ const Profile = () => {
   const [fade, setFade] = useState(false);
   const [section, setSection] = useState("personal");
   const [isModifyAvatar, setIsModifyAvatar] = useState(false);
+  const [isCustomAvatar, setIsCustomAvatar] = useState(false);
   const [isConfirmDelete, setIsConfirmDelete] = useState(false);
   const {
     user,
@@ -106,7 +107,11 @@ const Profile = () => {
         <ProfileContainer>
           <LeftTop>
             <ButtonAvatar onClick={() => setIsModifyAvatar(true)}>
-              <Avatar src={user.avatar} alt="avatar" />
+              <Avatar
+                src={user.avatar}
+                alt="avatar"
+                iscustom={isCustomAvatar}
+              />
             </ButtonAvatar>
             <div>
               <Username>{user.username}</Username>
@@ -150,6 +155,7 @@ const Profile = () => {
               setIsModifyAvatar={setIsModifyAvatar}
               user={user}
               setRefreshUser={setRefreshUser}
+              setIsCustomAvatar={setIsCustomAvatar}
             />
           )}
           {!isModifyAvatar && (
@@ -312,6 +318,8 @@ const LeftBottom = styled.div`
 
 const Avatar = styled.img`
   width: 10rem;
+  height: 10rem;
+  border-radius: ${(props) => (props.iscustom ? "50%" : "")};
   :hover {
     opacity: 0.4;
   }
