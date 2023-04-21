@@ -98,6 +98,7 @@ const registerUser = async (req, res) => {
       avatar: req.body.avatar,
       beatLiked: [],
       beatCreated: [],
+      customAvatar: [],
       hash: hash,
       salt: salt,
     };

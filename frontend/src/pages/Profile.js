@@ -48,6 +48,19 @@ const Profile = () => {
     return totalLikes;
   };
 
+  /* Get the total of comments the user have */
+  const getAllComments = () => {
+    let totalComments = 0;
+    for (let i = 0; i < user.beatCreated.length; i++) {
+      for (let y = 0; y < allBeats.length; y++) {
+        if (allBeats[y]._id === user.beatCreated[i]) {
+          totalComments += allBeats[y].comments.length;
+        }
+      }
+    }
+    return totalComments;
+  };
+
   /*Refresh user & beats */
   useLayoutEffect(() => {
     setRefreshUser((prev) => !prev);
@@ -107,11 +120,7 @@ const Profile = () => {
         <ProfileContainer>
           <LeftTop>
             <ButtonAvatar onClick={() => setIsModifyAvatar(true)}>
-              <Avatar
-                src={user.avatar}
-                alt="avatar"
-                iscustom={isCustomAvatar}
-              />
+              <Avatar src={user.avatar} alt="avatar" />
             </ButtonAvatar>
             <div>
               <Username>{user.username}</Username>
@@ -126,7 +135,7 @@ const Profile = () => {
             </Status>
             <Data>
               <p>{getAllLikes()}</p>
-              <p>24</p>
+              <p>{getAllComments()}</p>
               <p>{user.beatCreated.length}</p>
             </Data>
           </LeftBottom>
@@ -319,7 +328,7 @@ const LeftBottom = styled.div`
 const Avatar = styled.img`
   width: 10rem;
   height: 10rem;
-  border-radius: ${(props) => (props.iscustom ? "50%" : "")};
+  border-radius: 50%;
   :hover {
     opacity: 0.4;
   }
@@ -418,7 +427,6 @@ const ButtonEffect = styled.div`
   right: ${(props) => (props.section === "personal" ? "" : "5px")};
 
   &.animationRight {
-    animation: bounce 0.5s alternate ease-in-out;
     animation: ${(props) =>
       props.section === "personal"
         ? ""

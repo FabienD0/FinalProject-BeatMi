@@ -131,13 +131,9 @@ const deleteAllBeatByUser = async (req, res) => {
 
     const db = client.db("BeatMi");
 
-    console.log(req.body.beatId);
-
     const results = await db
       .collection("beats")
       .deleteMany({ _id: { $in: req.body.beatId } });
-
-    console.log(results);
 
     if (results.acknowledged) {
       res

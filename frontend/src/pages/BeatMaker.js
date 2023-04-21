@@ -8,6 +8,7 @@ import Drums from "../components/Drums";
 import Melody from "../components/Melody";
 import Settings from "../components/Settings";
 import TransportBar from "../components/TransportBar";
+import HelpModal from "../components/modals/HelpModal";
 import Colors from "../utils/Colors";
 import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 import {
@@ -84,7 +85,6 @@ const BeatMaker = ({ allBeats }) => {
       ...drumAndMelodyUpdate.melody,
     ];
     setSequence(sequenceCopy);
-    console.log(sequenceCopy);
     setIsLoading(false);
   };
 
@@ -200,6 +200,7 @@ const BeatMaker = ({ allBeats }) => {
 
   return (
     <Container>
+      <HelpModal />
       <Drums steps={steps} currentPage={currentPage} />
       <Melody steps={steps} currentPage={currentPage} />
       <Chords currentChordTriggered={currentChordTriggered} />

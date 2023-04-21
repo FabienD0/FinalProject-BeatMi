@@ -33,9 +33,16 @@ const Beats = ({ allBeats }) => {
           )
       );
 
+      const beatFilterArtist = allBeats.filter((beat) =>
+        beat.artist.toLowerCase().includes(value.toLowerCase())
+      );
+
       if (beatFilter.length !== 0) {
         setIsResultFound(true);
         setResultSearchBeats(beatFilter);
+      } else if (beatFilterArtist.length !== 0) {
+        setIsResultFound(true);
+        setResultSearchBeats(beatFilterArtist);
       } else {
         setIsResultFound(true);
         setResultSearchBeats([]);
@@ -117,18 +124,6 @@ const Beats = ({ allBeats }) => {
           </ContainerMood>
         </ContainerSearch>
         <ContainerBeats>
-          {!isResultFound &&
-            allBeats.map((beat) => {
-              return <AllCards beat={beat} key={beat._id} />;
-            })}
-          {!isResultFound &&
-            allBeats.map((beat) => {
-              return <AllCards beat={beat} key={beat._id} />;
-            })}
-          {!isResultFound &&
-            allBeats.map((beat) => {
-              return <AllCards beat={beat} key={beat._id} />;
-            })}
           {!isResultFound &&
             allBeats.map((beat) => {
               return <AllCards beat={beat} key={beat._id} />;

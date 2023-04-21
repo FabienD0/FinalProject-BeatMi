@@ -32,6 +32,7 @@ const {
   addBeatUser,
   removeBeatUser,
   getUserById,
+  removeAvatar,
 } = require("./handlerUsers");
 
 const PORT = 8000;
@@ -91,6 +92,7 @@ express()
   .post("/api/getUserById/:id", getUserById)
   .post("/api/getUserByBeatId/:id", getUserByBeatId)
   .post("/api/changeAvatar", changeAvatar)
+  .post("/api/removeAvatar/", removeAvatar)
   .patch("/api/likeBeatUser", likeBeatUser)
   .patch("/api/removeLikeBeatuser", removeLikeBeatUser)
   .patch("/api/addBeatUser", addBeatUser)

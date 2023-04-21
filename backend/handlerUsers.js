@@ -1,12 +1,21 @@
 "use strict";
 const { MongoClient, ObjectId } = require("mongodb");
 require("dotenv").config();
-const { MONGO_URI } = process.env;
+const { MONGO_URI, CLOUDINARY_API_SECRET } = process.env;
+const cloudinary = require("cloudinary").v2;
 
+/* Mongo Options */
 const options = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 };
+
+/* Cloudinary Config */
+cloudinary.config({
+  cloud_name: "dtvq13klo",
+  api_key: "532881555394562",
+  api_secret: CLOUDINARY_API_SECRET,
+});
 
 /*==================================
         Get a user by Beat Id
@@ -147,13 +156,7 @@ const changeAvatar = async (req, res) => {
 
     const db = client.db("BeatMi");
 
-    const avatar = await db
-      .collection("users")
-      .updateOne(
-        { email: req.body.email },
-        { $set: { avatar: req.body.avatar } }
-      );
-
+    //Add customAvatar to the user
     if (req.body.addToUser) {
       const customAvatar = await db
         .collection("users")
@@ -163,8 +166,63 @@ const changeAvatar = async (req, res) => {
         );
     }
 
-    if (avatar.acknowledged) {
-      res.status(200).json({ status: 200, message: "Avatar changed" });
+    //Change to custom avatar
+    if (req.body.isCustom) {
+      const avatar = await db
+        .collection("users")
+        .updateOne(
+          { email: req.body.email },
+          { $set: { avatar: req.body.avatar.url } }
+        );
+
+      if (avatar.acknowledged) {
+        res.status(200).json({ status: 200, message: "Avatar changed" });
+      } else {
+        res.status(404).json({ status: 404, message: "Error" });
+      }
+
+      //Change to default avatar
+    } else if (!req.body.isCustom) {
+      const avatar = await db
+        .collection("users")
+        .updateOne(
+          { email: req.body.email },
+          { $set: { avatar: req.body.avatar } }
+        );
+
+      if (avatar.acknowledged) {
+        res.status(200).json({ status: 200, message: "Avatar changed" });
+      } else {
+        res.status(404).json({ status: 404, message: "Error" });
+      }
+    }
+
+    client.close();
+  } catch (err) {
+    res.status(500).json({ status: 500, message: err.message });
+  }
+};
+
+/*==============================
+Remove a custom avatar from a user
+===============================*/
+const removeAvatar = async (req, res) => {
+  try {
+    const client = new MongoClient(MONGO_URI, options);
+    await client.connect();
+
+    const db = client.db("BeatMi");
+
+    const customAvatar = await db
+      .collection("users")
+      .updateOne(
+        { email: req.body.email },
+        { $pull: { customAvatar: req.body.avatar } }
+      );
+
+    if (customAvatar.acknowledged) {
+      cloudinary.uploader.destroy(req.body.avatar.publicId);
+      res.status(200).json({ status: 200, message: "Custom avatar deleted" });
     } else {
       res.status(404).json({ status: 404, message: "Error" });
     }
@@ -297,4 +355,5 @@ module.exports = {
   removeBeatUser,
   removeLikeBeatAllUser,
   getUserById,
+  removeAvatar,
 };

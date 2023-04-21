@@ -70,9 +70,9 @@ const NavBar = () => {
                 </button>
               </Modal>
             )}
-            <Avatar src="/images/avatar/1.png" />
+            <Avatar src={user.avatar} />
             <button
-              style={{ all: "unset" }}
+              style={{ all: "unset", width: "70%" }}
               onClick={() => setIsModal(!isModal)}
             >
               <AvatarText>{user.username}</AvatarText>
@@ -209,7 +209,6 @@ const ContainerAvatar = styled.div`
   color: ${Colors.gray};
   width: 100%;
   font-size: 1.3rem;
-
   transition: all 200ms;
   letter-spacing: 0.2rem;
 `;
@@ -220,6 +219,7 @@ const Avatar = styled.img`
 `;
 
 const AvatarText = styled.p`
+  font-size: 1rem;
   :hover {
     color: ${Colors.yellow};
     cursor: pointer;

@@ -1,13 +1,20 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { FaPlay } from "react-icons/fa";
 import styled from "styled-components";
 import Colors from "../../utils/Colors";
 import { NavLink } from "react-router-dom";
+import { useEffect } from "react";
+import { GeneralContext, URL } from "../context/GeneralContext";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const AllCards = ({ beat }) => {
   const [hoverBeat, setHoverBeat] = useState(false);
 
-  // const drumKitName = beat.drumKit.replace("/sounds/");
+  const { allUsers } = useContext(GeneralContext);
+
+  const [avatarFilter] = allUsers.filter((user) =>
+    user.beatCreated.includes(beat._id)
+  );
 
   return (
     <NavLink style={{ all: "unset" }} to={`/beatmaker/${beat._id}`}>
@@ -18,10 +25,10 @@ const AllCards = ({ beat }) => {
         <ContainerHover hoverbeat={hoverBeat}>
           <PlayIcon />
         </ContainerHover>
-        <ArtistPicture src="https://pbs.twimg.com/profile_images/1321060196844769280/C_qVM9QS_400x400.jpg" />
+        <ArtistPicture src={avatarFilter.avatar} />
         <ContainerInfo>
           <BeatName>{beat.title}</BeatName>
-          <BeatArtist>Dj Dream</BeatArtist>
+          <BeatArtist>{beat.artist}</BeatArtist>
           <ContainerInfoBeat>
             <Info>{beat.mood}</Info>
             <Info>{beat.drumKit[1]}</Info>
@@ -124,4 +131,18 @@ const Info = styled.p`
   font-style: italic;
   border-radius: 20px;
   padding: 0.3rem;
+`;
+
+const LoadingIcon = styled(AiOutlineLoading3Quarters)`
+  color: ${Colors.gray};
+  animation: rotation 1.5s infinite linear;
+
+  @keyframes rotation {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
 `;

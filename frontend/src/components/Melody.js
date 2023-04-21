@@ -178,6 +178,7 @@ const Melody = ({ steps, currentPage }) => {
 export default Melody;
 
 const Container = styled.div`
+  position: relative;
   display: flex;
   background-color: ${Colors.primary200};
   min-height: 20rem;

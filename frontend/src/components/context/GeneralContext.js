@@ -14,6 +14,7 @@ export const GeneralProvider = ({ children }) => {
     ?.split("=")[1];
 
   const [allBeats, setAllBeats] = useState([]);
+  const [allUsers, setAllUsers] = useState([]);
   const [refreshBeats, setRefreshBeats] = useState(false);
   const [refreshUser, setRefreshUser] = useState(false);
   const [loadingState, setLoadingState] = useState("");
@@ -43,6 +44,18 @@ export const GeneralProvider = ({ children }) => {
       .then((data) => {
         setAllBeats(data.beats);
         console.log("Beats Loaded");
+        setLoadingState("success");
+      })
+      .catch(() => setLoadingState("error"));
+  }, [refreshBeats]);
+
+  /*Get all users avatar */
+  /* Get all beats from the database */
+  useEffect(() => {
+    fetch(`${URL}/api/getAllUsers`)
+      .then((res) => res.json())
+      .then((data) => {
+        setAllUsers(data.users);
         setLoadingState("success");
       })
       .catch(() => setLoadingState("error"));
@@ -81,6 +94,7 @@ export const GeneralProvider = ({ children }) => {
         refreshUser,
         setRefreshUser,
         cookieValue,
+        allUsers,
       }}
     >
       {children}

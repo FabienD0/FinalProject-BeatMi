@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Colors from "../../utils/Colors";
 import { BiArrowBack } from "react-icons/bi";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { AiOutlineLoading3Quarters, AiFillCloseCircle } from "react-icons/ai";
 import { defaultAvatar } from "../../utils/defaultAvatarPath";
 import {
   URL,
@@ -12,18 +12,16 @@ import { useNavigate } from "react-router-dom";
 import { useRef } from "react";
 import { useState } from "react";
 
-const ChangeAvatar = ({
-  setIsModifyAvatar,
-  user,
-  setRefreshUser,
-  setIsCustomAvatar,
-}) => {
+const ChangeAvatar = ({ setIsModifyAvatar, user, setRefreshUser }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [hoveredButton, setHoveredButton] = useState(null);
   const navigate = useNavigate();
   const fileInputRef = useRef(null);
 
   /* Change Avatar Function */
   const handleChangeAvatar = (avatar, isCustom, addToUser) => {
+    setErrorMessage("");
     fetch(`${URL}/api/changeAvatar`, {
       method: "POST",
       headers: {
@@ -40,37 +38,71 @@ const ChangeAvatar = ({
       .then(() => {
         setRefreshUser((prev) => !prev);
         setIsModifyAvatar(false);
-        setIsCustomAvatar(isCustom);
       })
       .catch(() => navigate("/404"));
   };
 
+  /* Remove custom Avatar Function */
+  const removeAvatar = (avatar, e) => {
+    e.stopPropagation();
+    if (user.avatar !== avatar.url) {
+      fetch(`${URL}/api/removeAvatar`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: user.email,
+          avatar: avatar,
+        }),
+      })
+        .then((res) => res.json())
+        .then(() => {
+          setRefreshUser((prev) => !prev);
+        })
+        .catch(() => navigate("/404"));
+    } else {
+      setErrorMessage("You can't delete your current avatar");
+    }
+  };
+
   /* Choose the file to upload */
   const handleUpload = () => {
-    fileInputRef.current.click();
+    if (user.customAvatar.length >= 10) {
+      setErrorMessage("Maximum of 10 custom avatars reached.");
+    } else {
+      fileInputRef.current.click();
+    }
   };
 
   /* API to upload an image */
   const handleFileUpload = (event) => {
-    setIsLoading(true);
     const file = event.target.files[0];
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("upload_preset", PRESET_NAME);
+    if (file.type === "image/png" || file.type === "image/jpeg") {
+      setIsLoading(true);
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("upload_preset", PRESET_NAME);
 
-    fetch(CLOUDINARY_URL, {
-      method: "POST",
-      body: formData,
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.secure_url !== "") {
-          const uploadedFileUrl = data.secure_url;
-          handleChangeAvatar(uploadedFileUrl, true, true);
-          setIsLoading(false);
-        }
+      fetch(CLOUDINARY_URL, {
+        method: "POST",
+        body: formData,
       })
-      .catch((err) => console.error(err));
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.secure_url !== "") {
+            const uploadedFileUrl = {
+              publicId: data.public_id,
+              url: data.secure_url,
+            };
+            handleChangeAvatar(uploadedFileUrl, true, true);
+            setIsLoading(false);
+          }
+        })
+        .catch((err) => console.error(err));
+    } else {
+      setErrorMessage("Accept PNG and JPEG file only.");
+    }
   };
 
   return (
@@ -97,11 +129,18 @@ const ChangeAvatar = ({
         {user.customAvatar &&
           user.customAvatar.map((avatar) => (
             <button
-              key={avatar}
-              style={{ all: "unset" }}
+              key={avatar.publicId}
+              style={{ all: "unset", position: "relative" }}
               onClick={() => handleChangeAvatar(avatar, true, false)}
+              onMouseEnter={() => setHoveredButton(avatar.publicId)}
+              onMouseLeave={() => setHoveredButton(null)}
             >
-              <AvatarCustom src={avatar} />
+              {hoveredButton === avatar.publicId && (
+                <ButtonDeleteIcon onClick={(e) => removeAvatar(avatar, e)}>
+                  <DeleteIcon />
+                </ButtonDeleteIcon>
+              )}
+              <AvatarCustom src={avatar.url} />
             </button>
           ))}
       </ContainerAvatarChoice>
@@ -120,30 +159,7 @@ const ChangeAvatar = ({
             </Button>
           )}
         </div>
-        <button
-          onClick={() => {
-            fetch(
-              `https://api.cloudinary.com/v1_1/dtvq13klo/image/destroy/j1na7wrvvkcnveo7hxxw.jpg`,
-              {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                  upload_preset: PRESET_NAME,
-                }),
-              }
-            )
-              .then((response) => response.json())
-              .then((data) => {
-                console.log(data);
-              })
-              .catch((err) => console.error(err));
-          }}
-        >
-          {" "}
-          DELETE image{" "}
-        </button>
+        {errorMessage && <p>{errorMessage}</p>}
       </ContainerBottom>
     </Container>
   );
@@ -238,7 +254,14 @@ const AvatarCustom = styled.img`
   }
 `;
 
-const ContainerBottom = styled.div``;
+const ContainerBottom = styled.div`
+  p {
+    margin-top: 1rem;
+    text-align: center;
+    color: red;
+    font-weight: bold;
+  }
+`;
 
 const Button = styled.button`
   all: unset;
@@ -277,5 +300,25 @@ const LoadingIcon = styled(AiOutlineLoading3Quarters)`
     to {
       transform: rotate(360deg);
     }
+  }
+`;
+
+const ButtonDeleteIcon = styled.div`
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+`;
+
+const DeleteIcon = styled(AiFillCloseCircle)`
+  position: relative;
+  font-size: 1.7rem;
+  color: rgb(206, 42, 36);
+  opacity: 0.5;
+
+  :hover {
+    opacity: 1;
+    cursor: pointer;
   }
 `;

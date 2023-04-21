@@ -283,7 +283,6 @@ const ButtonEffect = styled.div`
   right: ${(props) => (props.form === "signIn" ? "" : "5px")};
 
   &.animationRight {
-    animation: bounce 0.5s alternate ease-in-out;
     animation: ${(props) =>
       props.form === "signIn" ? "" : "slideRight 0.5s alternate ease-in-out"};
     @keyframes slideRight {

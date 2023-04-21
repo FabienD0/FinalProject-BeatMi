@@ -178,9 +178,9 @@ const DotChord = styled.div`
   top: -22px;
   left: 50%;
   transform: translateX(-50%);
-  animation: bounce 0.5s alternate infinite;
+  animation: bounceChord 0.5s alternate infinite;
 
-  @keyframes bounce {
+  @keyframes bounceChord {
     from {
       transform: translate3d(0, 0, 0);
     }
