@@ -2,24 +2,15 @@ import styled from "styled-components";
 import Colors from "../../utils/Colors";
 import { MdFavoriteBorder, MdFavorite } from "react-icons/md";
 import { BiCommentDetail } from "react-icons/bi";
+import { NavLink } from "react-router-dom";
 
-const MostFavoriteCards = () => {
+const MostFavoriteCards = ({ beat, background }) => {
   return (
-    <ContainerAll>
-      <ContainerCard>
+    <ContainerAll to={`/beatmaker/${beat._id}`}>
+      <ContainerCard background={background}>
         <ContainerInfoBeat>
-          <BeatTitle>Sick Beat</BeatTitle>
-          <BeatArtist>Dj Dream</BeatArtist>
-          <ContainerIconAll>
-            <ContainerIconSolo>
-              <FavoriteIcon />
-              <LikeNumber>123</LikeNumber>
-            </ContainerIconSolo>
-            <ContainerIconSolo>
-              <CommentIcon />
-              <CommentNumber>55</CommentNumber>
-            </ContainerIconSolo>
-          </ContainerIconAll>
+          <BeatTitle>{beat.title}</BeatTitle>
+          <BeatArtist>{beat.artist}</BeatArtist>
         </ContainerInfoBeat>
       </ContainerCard>
     </ContainerAll>
@@ -28,7 +19,8 @@ const MostFavoriteCards = () => {
 
 export default MostFavoriteCards;
 
-const ContainerAll = styled.div`
+const ContainerAll = styled(NavLink)`
+  all: unset;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -36,6 +28,10 @@ const ContainerAll = styled.div`
   border-radius: 30px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   height: 45%;
+
+  :hover {
+    cursor: pointer;
+  }
 `;
 
 const ContainerCard = styled.div`
@@ -50,7 +46,7 @@ const ContainerCard = styled.div`
   ::after {
     position: absolute;
     content: "";
-    background: url(https://cdn.epidemicsound.com/player/20230331.31-0a3257f820334ea4ea4a90f7dc5f90ee6244219b/bec6b356629fa9e616f90128719cbdb1-384.jpg);
+    background: ${(props) => `url(${props.background})`};
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -64,15 +60,22 @@ const ContainerCard = styled.div`
     transition: all 1s;
     -webkit-transition: all 1s;
   }
+
+  :hover {
+    ::after {
+      opacity: 0.8;
+      cursor: pointer;
+    }
+  }
 `;
 
 const ContainerInfoBeat = styled.div`
   position: absolute;
   display: flex;
-  align-items: space-between;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
   gap: 0.7rem;
-  flex-direction: column;
   z-index: 2;
   height: 100%;
   padding: 1rem;
@@ -80,12 +83,17 @@ const ContainerInfoBeat = styled.div`
 
 const BeatTitle = styled.h2`
   font-size: 2rem;
-  color: #e7e7e7;
+  color: ${Colors.gray};
+  font-size: 2rem;
+  text-align: center;
+  letter-spacing: 0.2rem;
+  text-shadow: 0px 4px 3px rgba(0, 0, 0, 0.4), 0px 8px 13px rgba(0, 0, 0, 0.1),
+    0px 18px 23px rgba(0, 0, 0, 0.1);
 `;
 
 const BeatArtist = styled.h3`
   color: ${Colors.yellow};
-  color: #ecd397;
+  font-style: italic;
 `;
 
 const ContainerIconAll = styled.div`
@@ -97,37 +105,4 @@ const ContainerIconSolo = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
-
-const FavoriteIcon = styled(MdFavoriteBorder)`
-  font-size: 1.7rem;
-  color: #c85b5b;
-  transition: all 300ms;
-
-  :hover {
-    cursor: pointer;
-    color: #e03838;
-  }
-`;
-
-const LikeNumber = styled.p`
-  font-size: 0.8rem;
-  color: ${Colors.gray};
-`;
-
-const CommentIcon = styled(BiCommentDetail)`
-  position: relative;
-  font-size: 1.7rem;
-  color: #5b87c8;
-  transition: all 300ms;
-
-  :hover {
-    cursor: pointer;
-    color: #326bc4;
-  }
-`;
-
-const CommentNumber = styled.p`
-  font-size: 0.8rem;
-  color: ${Colors.gray};
 `;

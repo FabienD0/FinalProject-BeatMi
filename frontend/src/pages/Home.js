@@ -3,22 +3,55 @@ import Colors from "../utils/Colors";
 import MostFavoriteCards from "../components/homepage/MostFavoriteCards";
 import TopArtistsCards from "../components/homepage/TopArtistsCards";
 import AllCards from "../components/homepage/AllCards";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { GeneralContext } from "../components/context/GeneralContext";
+import { externalImages } from "../utils/externalImages";
+import Beats from "./Beats";
 
 const Home = () => {
-  const { loadingState } = useContext(GeneralContext);
+  const [randomBeats, setRandomBeats] = useState([]);
+  const [mostFavoritesBeats, setMostFavoritesBeats] = useState([]);
+
+  const { loadingState, allBeats } = useContext(GeneralContext);
+
+  /* Generate a random number */
+  const randomNumber = () => {
+    return Math.floor(Math.random() * (allBeats.length - 0 + 1)) + 0;
+  };
+
+  /* Get 6 random beats */
+  useEffect(() => {
+    if (allBeats) {
+      let allBeatsCopy = [...allBeats];
+      while (allBeatsCopy.length > 8) {
+        allBeatsCopy.splice(randomNumber(), 1);
+      }
+      setRandomBeats(allBeatsCopy);
+    }
+  }, [allBeats]);
+
+  /* Get Most Favorite Beats */
+  useEffect(() => {
+    if (allBeats) {
+      let allBeatsCopy = [...allBeats];
+      allBeatsCopy.sort((a, b) => b.likedBy.length - a.likedBy.length);
+      setMostFavoritesBeats(allBeatsCopy.slice(0, 4));
+    }
+  }, [allBeats]);
 
   return (
     <ContainerAll>
       <ContainerSectionTop>
         <ContainerMostFavorite>
-          <Title>Most Favorite</Title>
+          <Title>Most Favorites</Title>
           <MostFavoriteDiv>
-            <MostFavoriteCards />
-            <MostFavoriteCards />
-            <MostFavoriteCards />
-            <MostFavoriteCards />
+            {mostFavoritesBeats.map((beat, index) => (
+              <MostFavoriteCards
+                key={beat._id}
+                beat={beat}
+                background={externalImages[index]}
+              />
+            ))}
           </MostFavoriteDiv>
         </ContainerMostFavorite>
         <ContainerTopArtist>
@@ -32,16 +65,11 @@ const Home = () => {
         </ContainerTopArtist>
       </ContainerSectionTop>
       <ContainerAllBeats>
-        <Title>Most Recent</Title>
+        <Title>Random</Title>
         <AllBeatsDiv>
-          {/* <AllCards/>
-          <AllCards />
-          <AllCards />
-          <AllCards />
-          <AllCards />
-          <AllCards />
-          <AllCards />
-          <AllCards /> */}
+          {randomBeats.map((beat) => {
+            return <AllCards key={beat._id} beat={beat} />;
+          })}
         </AllBeatsDiv>
       </ContainerAllBeats>
     </ContainerAll>
@@ -66,9 +94,18 @@ const ContainerSectionTop = styled.div`
 `;
 
 const Title = styled.h2`
-  font-size: 2.2rem;
   margin-bottom: 1rem;
   color: ${Colors.gray};
+  font-size: 2.2rem;
+  letter-spacing: 0.2rem;
+  text-shadow: 0px 4px 3px rgba(0, 0, 0, 0.4), 0px 8px 13px rgba(0, 0, 0, 0.1),
+    0px 18px 23px rgba(0, 0, 0, 0.1);
+  transition: all 1s;
+
+  :hover {
+    color: ${Colors.yellow};
+    cursor: default;
+  }
 `;
 
 const ContainerMostFavorite = styled.section`
