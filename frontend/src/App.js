@@ -33,7 +33,7 @@ const App = () => {
               element={<BeatMaker allBeats={allBeats} />}
             />
             <Route
-              path="/beats"
+              path="/beats/:id?"
               element={
                 <Beats
                   allBeats={allBeats}

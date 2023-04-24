@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Colors from "../utils/Colors";
 import { GeneralContext, URL } from "../components/context/GeneralContext";
 import AllCards from "../components/homepage/AllCards";
+import { useParams } from "react-router-dom";
 
 const Beats = ({ allBeats }) => {
   const { refreshBeats, setRefreshBeats, loadingState } =
@@ -12,6 +13,7 @@ const Beats = ({ allBeats }) => {
   const [resultSearchBeats, setResultSearchBeats] = useState([]);
   const [moodFilter, setMoodFilter] = useState("");
   const [isResultFound, setIsResultFound] = useState(false);
+  const { id } = useParams();
 
   useEffect(() => {
     setRefreshBeats(!refreshBeats);
@@ -64,6 +66,14 @@ const Beats = ({ allBeats }) => {
     }
   };
 
+  /* Looking if there's an ID to find an artist */
+  useEffect(() => {
+    if (id) {
+      handleSearch(id);
+    }
+  }, []);
+
+  /* Loading State */
   if (loadingState === "loading") {
     return <h1>Loading beats...</h1>;
   }
@@ -147,6 +157,7 @@ const ContainerAll = styled.div`
   color: white;
   width: 95%;
   height: 90vh;
+  height: 52rem;
 `;
 
 const ContainerAllBeats = styled.section`
@@ -201,9 +212,18 @@ const ContainerTextBanner = styled.div`
   font-size: 5rem;
   font-weight: 700;
   letter-spacing: 0.5rem;
+  text-align: center;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+
+  @media (max-width: 1138px) {
+    font-size: 4rem;
+    width: 100%;
+  }
+  @media (max-width: 517px) {
+    font-size: 2rem;
+  }
 `;
 
 const Title = styled.p`
@@ -224,6 +244,14 @@ const SmallTitle = styled.p`
   text-shadow: 0px 4px 3px rgba(0, 0, 0, 0.4), 0px 8px 13px rgba(0, 0, 0, 0.1),
     0px 18px 23px rgba(0, 0, 0, 0.1);
   font-weight: 400;
+
+  @media (max-width: 1138px) {
+    font-size: 1rem;
+    width: 100%;
+  }
+  @media (max-width: 517px) {
+    display: none;
+  }
 `;
 
 const ContainerSearch = styled.div`
@@ -251,6 +279,10 @@ const ContainerMood = styled.div`
   justify-content: center;
   gap: 3rem;
   margin: 1rem;
+
+  @media (max-width: 1038px) {
+    display: none;
+  }
 `;
 
 const Mood = styled.button`
@@ -279,6 +311,10 @@ const ContainerBeats = styled.div`
   height: 100%;
   width: 100%;
   overflow: auto;
+
+  @media (max-width: 700px) {
+    flex-direction: column;
+  }
 
   &::-webkit-scrollbar {
     -webkit-appearance: none;

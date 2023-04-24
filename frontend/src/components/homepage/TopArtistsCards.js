@@ -1,20 +1,29 @@
 import styled from "styled-components";
 import Colors from "../../utils/Colors";
 import { MdFavoriteBorder } from "react-icons/md";
-import { BsThreeDots } from "react-icons/bs";
+import { useContext } from "react";
+import { GeneralContext } from "../context/GeneralContext";
+import { AiOutlineArrowRight } from "react-icons/ai";
+import { NavLink } from "react-router-dom";
 
-const TopArtistsCards = () => {
+const TopArtistsCards = ({ artist }) => {
+  const { allUsers } = useContext(GeneralContext);
+
+  const [filterArtist] = allUsers.filter((user) => user.username === artist[0]);
+
   return (
     <Container>
-      <ArtistPicture src="https://pbs.twimg.com/profile_images/1321060196844769280/C_qVM9QS_400x400.jpg" />
+      <ArtistPicture src={filterArtist.avatar} />
       <ContainerInfo>
-        <ArtistName>DjDream</ArtistName>
+        <ArtistName>{filterArtist.username}</ArtistName>
         <ContainerLike>
           <MdFavoriteBorder />
-          <p>340 likes</p>
+          <p>{artist[1]} likes</p>
         </ContainerLike>
       </ContainerInfo>
-      <MoreIcon />
+      <NavLink style={{ all: "unset" }} to={`/beats/${filterArtist.username}`}>
+        <ArrowIcon />
+      </NavLink>
     </Container>
   );
 };
@@ -33,6 +42,11 @@ const ArtistPicture = styled.img`
   width: 60px;
   height: 60px;
   margin-right: 1rem;
+
+  @media (max-width: 1308px) {
+    width: 40px;
+    height: 40px;
+  }
 `;
 
 const ContainerInfo = styled.div`
@@ -44,6 +58,24 @@ const ArtistName = styled.h3`
   color: ${Colors.yellow};
   letter-spacing: 0.13em;
   margin-bottom: 0.3rem;
+
+  @media (max-width: 1308px) {
+    font-size: 0.8rem;
+  }
+  @media (max-width: 973px) {
+    font-size: 0.6rem;
+  }
+
+  @media (max-width: 853px) {
+    display: none;
+  }
+  @media (max-width: 683px) {
+    display: block;
+    font-size: 0.8rem;
+  }
+  @media (max-width: 425px) {
+    font-size: 0.5rem;
+  }
 `;
 const ContainerLike = styled.div`
   display: flex;
@@ -53,14 +85,34 @@ const ContainerLike = styled.div`
   color: ${Colors.gray};
   letter-spacing: 0.13em;
   font-style: italic;
+
+  @media (max-width: 853px) {
+    display: none;
+  }
+
+  @media (max-width: 683px) {
+    display: flex;
+    font-size: 0.7rem;
+  }
 `;
 
-const MoreIcon = styled(BsThreeDots)`
-  font-size: 2rem;
-  transition: all 300ms;
+const ArrowIcon = styled(AiOutlineArrowRight)`
+  color: ${Colors.gray};
+  font-size: 1.2rem;
+  transition: all 500ms;
 
   :hover {
     cursor: pointer;
-    opacity: 0.5;
+    opacity: 0.8;
+    color: ${Colors.yellow};
+    animation: move 1s infinite;
+  }
+  @keyframes move {
+    from {
+      transform: translateX(0px);
+    }
+    to {
+      transform: translateX(5px);
+    }
   }
 `;

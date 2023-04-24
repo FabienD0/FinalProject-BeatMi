@@ -201,7 +201,9 @@ const Profile = () => {
               )}
               {section === "liked" &&
                 user.beatLiked.map((beatId) => {
-                  return <SmallCardLiked beatId={beatId} key={beatId} />;
+                  return (
+                    <SmallCardLiked beatId={beatId} key={beatId} user={user} />
+                  );
                 })}
               {section === "personal" && user.beatCreated.length === 0 && (
                 <p
@@ -217,6 +219,7 @@ const Profile = () => {
                 user.beatCreated.map((beatId) => {
                   return (
                     <SmallCardTracks
+                      setRefreshBeats={setRefreshBeats}
                       beatId={beatId}
                       key={beatId}
                       user={user}

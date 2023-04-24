@@ -8,7 +8,7 @@ import { AiFillDelete, AiOutlineLoading3Quarters } from "react-icons/ai";
 import { NavLink } from "react-router-dom";
 import { GeneralContext, URL } from "../../components/context/GeneralContext";
 
-const SmallCardTracks = ({ beatId, user, setRefreshUser }) => {
+const SmallCardTracks = ({ beatId, user, setRefreshUser, setRefreshBeats }) => {
   const { allBeats, cookieValue } = useContext(GeneralContext);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -46,6 +46,7 @@ const SmallCardTracks = ({ beatId, user, setRefreshUser }) => {
       .then((res) => res.json())
       .then((data) => {
         setRefreshUser((prev) => !prev);
+        setRefreshBeats((prev) => !prev);
         setIsLoading(false);
       })
       .catch((err) => console.log(err));

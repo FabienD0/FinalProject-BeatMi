@@ -70,7 +70,14 @@ const NavBar = () => {
                 </button>
               </Modal>
             )}
-            <Avatar src={user.avatar} />
+            <button
+              style={{ all: "unset", width: "100%" }}
+              onClick={() => setIsModal(!isModal)}
+            >
+              {" "}
+              <Avatar src={user.avatar} />
+            </button>
+
             <button
               style={{ all: "unset", width: "70%" }}
               onClick={() => setIsModal(!isModal)}
@@ -89,6 +96,13 @@ export default NavBar;
 const NavigationFull = styled.nav`
   min-height: 100vh;
   min-width: var(--navBarSize);
+
+  @media (max-width: 1000px) {
+    min-width: 8rem;
+  }
+  @media (max-width: 425px) {
+    min-width: 6rem;
+  }
 `;
 
 const NavigationSmall = styled.div`
@@ -98,16 +112,11 @@ const NavigationSmall = styled.div`
   gap: 1rem;
   padding: 2rem 1.5rem;
   min-height: 100vh;
-  /* width: 60%; */
   background-color: ${Colors.primary200};
   animation: slideOut 0.5s ease-in-out;
   border-radius: 0px 45px 45px 0px;
   border-right: 1px solid rgba(255, 228, 165, 0.3);
-
-  /* :hover {
-    width: 100%;
-    animation: slideIn 0.5s ease-in-out;
-  } */
+  height: 100%;
 
   @keyframes slideIn {
     0% {
@@ -136,6 +145,13 @@ const Logo = styled.img`
   :hover {
     opacity: 1;
     cursor: pointer;
+  }
+
+  @media (max-width: 1000px) {
+    width: 7rem;
+  }
+  @media (max-width: 425px) {
+    display: none;
   }
 `;
 
@@ -172,6 +188,10 @@ const ContainerLink = styled(NavLink)`
 const Title = styled.p`
   font-size: 1.3rem;
   letter-spacing: 0.2rem;
+
+  @media (max-width: 1000px) {
+    display: none;
+  }
 `;
 
 const ContainerLinkLogIn = styled(NavLink)`
@@ -211,18 +231,42 @@ const ContainerAvatar = styled.div`
   font-size: 1.3rem;
   transition: all 200ms;
   letter-spacing: 0.2rem;
+
+  @media (max-width: 1000px) {
+    width: 100%;
+  }
+  @media (max-width: 425px) {
+    width: fit-content;
+  }
 `;
 
 const Avatar = styled.img`
   width: 3rem;
   border-radius: 30px;
+
+  @media (max-width: 425px) {
+    display: block;
+    width: 2rem;
+  }
 `;
 
 const AvatarText = styled.p`
   font-size: 1rem;
+
+  @media (max-width: 1000px) {
+    font-size: 0.8rem;
+  }
   :hover {
     color: ${Colors.yellow};
     cursor: pointer;
+  }
+
+  @media (max-width: 1000px) {
+    display: none;
+  }
+
+  @media (max-width: 425px) {
+    display: none;
   }
 `;
 
@@ -237,6 +281,17 @@ const Modal = styled.div`
   border-radius: 20px;
   background-color: rgba(206, 42, 36, 0.4);
   top: -75px;
+
+  @media (max-width: 1000px) {
+    font-size: 0.7rem;
+    height: 2rem;
+    top: -50px;
+  }
+
+  @media (max-width: 425px) {
+    font-size: 0.5rem;
+    top: -25px;
+  }
 
   p {
     :hover {

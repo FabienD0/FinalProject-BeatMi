@@ -1,14 +1,15 @@
 import styled from "styled-components";
 import Colors from "../../utils/Colors";
-import { BsThreeDots } from "react-icons/bs";
 import { GeneralContext, URL } from "../../components/context/GeneralContext";
-import { useContext, useState } from "react";
-import { useEffect } from "react";
+import { useContext, useState, useEffect } from "react";
+import { removeLike } from "../../utils/function";
+import { AiFillDelete, AiOutlineLoading3Quarters } from "react-icons/ai";
 
-const SmallCardLiked = ({ beatId }) => {
-  const { allBeats } = useContext(GeneralContext);
+const SmallCardLiked = ({ beatId, user }) => {
+  const { allBeats, setRefreshUser } = useContext(GeneralContext);
   const [avatar, setAvatar] = useState("");
   const [getBeatById] = allBeats.filter((beat) => beat._id === beatId);
+  const [isLoading, setIsLoading] = useState(false);
 
   /* Get USER avatar by beat ID */
   useEffect(() => {
@@ -28,8 +29,16 @@ const SmallCardLiked = ({ beatId }) => {
     }
   }, []);
 
+  /*Function to remove like */
+  const handleRemoveLike = () => {
+    setIsLoading(true);
+    removeLike(beatId, user._id, URL, setRefreshUser, () => {
+      setIsLoading(false);
+    });
+  };
+
   if (!avatar) {
-    return <h1>Loading</h1>;
+    return <LoadingIcon />;
   }
 
   return (
@@ -41,7 +50,12 @@ const SmallCardLiked = ({ beatId }) => {
           <p>{getBeatById.artist}</p>
         </ContainerLike>
       </ContainerInfo>
-      <MoreIcon />
+      {!isLoading && (
+        <button style={{ all: "unset" }} onClick={handleRemoveLike}>
+          <DeleteIcon />
+        </button>
+      )}
+      {isLoading && <LoadingIcon />}
     </Container>
   );
 };
@@ -83,13 +97,24 @@ const ContainerLike = styled.div`
   letter-spacing: 0.13em;
   font-style: italic;
 `;
-
-const MoreIcon = styled(BsThreeDots)`
-  font-size: 2rem;
-  transition: all 300ms;
-
+const DeleteIcon = styled(AiFillDelete)`
+  font-size: 1.5rem;
   :hover {
+    color: rgba(206, 42, 36);
     cursor: pointer;
-    opacity: 0.5;
+  }
+`;
+
+const LoadingIcon = styled(AiOutlineLoading3Quarters)`
+  color: ${Colors.gray};
+  animation: rotation 1.5s infinite linear;
+
+  @keyframes rotation {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
   }
 `;

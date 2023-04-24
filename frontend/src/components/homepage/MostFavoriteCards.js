@@ -32,6 +32,15 @@ const ContainerAll = styled(NavLink)`
   :hover {
     cursor: pointer;
   }
+
+  @media (max-width: 1013px) {
+    width: 40%;
+    height: 40%;
+  }
+  @media (max-width: 683px) {
+    width: 100%;
+    height: calc(85% / 4);
+  }
 `;
 
 const ContainerCard = styled.div`
@@ -89,11 +98,28 @@ const BeatTitle = styled.h2`
   letter-spacing: 0.2rem;
   text-shadow: 0px 4px 3px rgba(0, 0, 0, 0.4), 0px 8px 13px rgba(0, 0, 0, 0.1),
     0px 18px 23px rgba(0, 0, 0, 0.1);
+
+  @media (max-width: 1209px) {
+    font-size: 1.5rem;
+  }
+  @media (max-width: 1013px) {
+    font-size: 1rem;
+  }
+  @media (max-width: 683px) {
+    font-size: 1.5rem;
+  }
 `;
 
 const BeatArtist = styled.h3`
   color: ${Colors.yellow};
   font-style: italic;
+
+  @media (max-width: 1013px) {
+    font-size: 0.7rem;
+  }
+  @media (max-width: 683px) {
+    font-size: 1rem;
+  }
 `;
 
 const ContainerIconAll = styled.div`

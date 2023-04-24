@@ -6,11 +6,11 @@ import AllCards from "../components/homepage/AllCards";
 import { useContext, useEffect, useState } from "react";
 import { GeneralContext } from "../components/context/GeneralContext";
 import { externalImages } from "../utils/externalImages";
-import Beats from "./Beats";
 
 const Home = () => {
   const [randomBeats, setRandomBeats] = useState([]);
   const [mostFavoritesBeats, setMostFavoritesBeats] = useState([]);
+  const [topArtists, setTopArtists] = useState([]);
 
   const { loadingState, allBeats } = useContext(GeneralContext);
 
@@ -39,6 +39,26 @@ const Home = () => {
     }
   }, [allBeats]);
 
+  /* Get Artists with most likes */
+  useEffect(() => {
+    if (allBeats) {
+      const artistsLike = {};
+
+      allBeats.forEach((beat) => {
+        if (!artistsLike[beat.artist]) {
+          artistsLike[beat.artist] = 0;
+        }
+        artistsLike[beat.artist] += beat.likedBy.length;
+      });
+
+      const artistArray = Object.entries(artistsLike)
+        .sort(([, a], [, b]) => b - a)
+        .slice(0, 4);
+
+      setTopArtists(artistArray);
+    }
+  }, [allBeats]);
+
   return (
     <ContainerAll>
       <ContainerSectionTop>
@@ -57,10 +77,9 @@ const Home = () => {
         <ContainerTopArtist>
           <Title>Top Artists</Title>
           <TopArtistDiv>
-            <TopArtistsCards />
-            <TopArtistsCards />
-            <TopArtistsCards />
-            <TopArtistsCards />
+            {topArtists.map((artist) => (
+              <TopArtistsCards key={artist[0]} artist={artist} />
+            ))}
           </TopArtistDiv>
         </ContainerTopArtist>
       </ContainerSectionTop>
@@ -91,6 +110,11 @@ const ContainerSectionTop = styled.div`
   display: flex;
   justify-content: space-between;
   height: 45%;
+
+  @media (max-width: 683px) {
+    flex-direction: column;
+    height: 100%;
+  }
 `;
 
 const Title = styled.h2`
@@ -106,10 +130,36 @@ const Title = styled.h2`
     color: ${Colors.yellow};
     cursor: default;
   }
+
+  @media (max-width: 1058px) {
+    font-size: 1.5rem;
+  }
+
+  @media (max-width: 813px) {
+    font-size: 1rem;
+  }
+
+  @media (max-width: 663px) {
+    font-size: 0.7rem;
+    font-weight: bold;
+  }
+  @media (max-width: 683px) {
+    font-size: 1.5rem;
+  }
+  @media (max-width: 683px) {
+    text-align: center;
+  }
+  @media (max-width: 425px) {
+    font-size: 1rem;
+  }
 `;
 
 const ContainerMostFavorite = styled.section`
   width: 60%;
+  @media (max-width: 683px) {
+    width: 100%;
+    height: 100%;
+  }
 `;
 
 const MostFavoriteDiv = styled.div`
@@ -124,11 +174,20 @@ const MostFavoriteDiv = styled.div`
   -webkit-box-shadow: 5px 5px 9px -1px rgba(238, 238, 238, 0.18);
   box-shadow: 5px 5px 9px -1px rgba(238, 238, 238, 0.18);
   padding: 1rem;
+
+  @media (max-width: 683px) {
+    flex-direction: column;
+  }
 `;
 
 const ContainerTopArtist = styled.section`
   width: 30%;
   height: 85%;
+
+  @media (max-width: 683px) {
+    width: 100%;
+    height: 30%;
+  }
 `;
 
 const TopArtistDiv = styled.div`
@@ -147,6 +206,10 @@ const TopArtistDiv = styled.div`
 const ContainerAllBeats = styled.section`
   width: 100%;
   height: 48%;
+
+  @media (max-width: 683px) {
+    display: none;
+  }
 `;
 
 const AllBeatsDiv = styled.div`
@@ -161,4 +224,8 @@ const AllBeatsDiv = styled.div`
   height: 80%;
   -webkit-box-shadow: 5px 5px 9px -1px rgba(238, 238, 238, 0.18);
   box-shadow: 5px 5px 9px -1px rgba(238, 238, 238, 0.18);
+
+  @media (max-width: 683px) {
+    display: none;
+  }
 `;

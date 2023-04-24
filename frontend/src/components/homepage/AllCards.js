@@ -56,6 +56,24 @@ const Container = styled.div`
   background-color: rgba(34, 40, 49, 0.8);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   overflow: hidden;
+
+  @media (max-width: 1308px) {
+    width: 10rem;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  @media (max-width: 1058px) {
+    height: 5rem;
+  }
+
+  @media (max-width: 900px) {
+    width: 10rem;
+    height: 4rem;
+  }
+
+  @media (max-width: 400px) {
+    width: 8rem;
+  }
 `;
 
 const ContainerHover = styled.div`
@@ -95,6 +113,15 @@ const ArtistPicture = styled.img`
   width: 60px;
   height: 60px;
   margin-right: 1rem;
+
+  @media (max-width: 1308px) {
+    width: 30px;
+    height: 30px;
+  }
+
+  @media (max-width: 1095px) {
+    display: none;
+  }
 `;
 
 const ContainerInfo = styled.div`
@@ -104,10 +131,17 @@ const ContainerInfo = styled.div`
 `;
 
 const BeatName = styled.h3`
-  /* text-align: center; */
   color: ${Colors.yellow};
   letter-spacing: 0.13em;
   margin-bottom: 0.3rem;
+
+  @media (max-width: 1308px) {
+    font-size: 0.8rem;
+    text-align: center;
+  }
+  @media (max-width: 400px) {
+    font-size: 0.6rem;
+  }
 `;
 
 const BeatArtist = styled.p`
@@ -115,6 +149,13 @@ const BeatArtist = styled.p`
   font-size: 0.7rem;
   color: ${Colors.gray};
   letter-spacing: 0.13em;
+
+  @media (max-width: 1308px) {
+    text-align: center;
+  }
+  @media (max-width: 400px) {
+    font-size: 0.6rem;
+  }
 `;
 
 const ContainerInfoBeat = styled.div`
@@ -131,6 +172,10 @@ const Info = styled.p`
   font-style: italic;
   border-radius: 20px;
   padding: 0.3rem;
+
+  @media (max-width: 1308px) {
+    display: none;
+  }
 `;
 
 const LoadingIcon = styled(AiOutlineLoading3Quarters)`
