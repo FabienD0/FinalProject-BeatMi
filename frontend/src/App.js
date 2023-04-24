@@ -65,4 +65,6 @@ const Main = styled.main`
   justify-content: center;
   width: calc(100vw - var(--navBarSize));
   padding: 2rem;
+
+  overflow: auto;
 `;

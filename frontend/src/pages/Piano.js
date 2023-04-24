@@ -201,6 +201,12 @@ const Container = styled.div`
   flex-direction: column;
   height: 100%;
   width: 100%;
+  background-color: #222831;
+
+  @media (max-width: 1266px) {
+    align-items: center;
+    overflow: auto;
+  }
 `;
 
 const ContainerTitle = styled.div`
@@ -214,6 +220,33 @@ const ContainerBottom = styled.div`
   justify-content: center;
   width: 100%;
   flex: 1;
+
+  @media (max-width: 1266px) {
+    width: 100%;
+    overflow: auto;
+  }
+
+  &::-webkit-scrollbar {
+    -webkit-appearance: none;
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+    padding: 1px 2px;
+    border-radius: 14px;
+    height: 1.2rem;
+    width: 1.5rem;
+    background: #232528;
+    box-shadow: inset 0 1px 0 0 #0d0e0f, inset 0 -1px 0 0 #3a3d42;
+    -webkit-box-shadow: inset 0 1px 0 0 #0d0e0f, inset 0 -1px 0 0 #3a3d42;
+    -webkit-transition: 0.2s;
+    transition: opacity 0.2s;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    -webkit-appearance: none;
+    border: none;
+    border-radius: 12px;
+    background: -webkit-linear-gradient(top, #529de1 0, #245e8f 100%);
+    background: linear-gradient(to bottom, #529de1 0, #245e8f 100%);
+  }
 `;
 
 const Title = styled.p`
@@ -238,7 +271,6 @@ const ContainerPiano = styled.div`
   border-top-left-radius: 50px;
   border-top-right-radius: 50px;
   height: 35rem;
-  width: 60rem;
   width: 95%;
   font-family: "Electrolize", sans-serif;
 
@@ -265,6 +297,17 @@ const ContainerPiano = styled.div`
 
   -webkit-box-shadow: 2px 3px 15px -6px rgba(238, 238, 238, 0.77);
   box-shadow: 2px 3px 15px -6px rgba(238, 238, 238, 0.77);
+
+  @media (max-width: 1210px) {
+    width: 58rem;
+  }
+  @media (max-width: 900px) {
+    height: 20rem;
+    margin-left: 10rem;
+  }
+  @media (max-width: 426px) {
+    margin-left: 15rem;
+  }
 `;
 
 const ContainerTop = styled.div`
@@ -316,6 +359,10 @@ const VolumeBar = styled.span`
   width: calc(100% / 7);
   border-radius: 2px;
   transition: all 0.1s;
+
+  @media (max-width: 600px) {
+    display: none;
+  }
 `;
 
 const Slider = styled.input`
@@ -357,6 +404,10 @@ const Slider = styled.input`
     bottom: -25px;
     left: 50%;
     transform: translateX(-50%);
+  }
+
+  @media (max-width: 600px) {
+    display: none;
   }
 `;
 
@@ -403,6 +454,16 @@ const WhiteKey = styled.div`
     pointer-events: none;
     padding: 1rem;
     user-select: none;
+  }
+
+  @media (max-width: 600px) {
+    /* height: 20rem; */
+    width: 2rem;
+    /* margin-left: 10rem; */
+
+    p {
+      display: none;
+    }
   }
 `;
 

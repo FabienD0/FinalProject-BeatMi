@@ -244,6 +244,18 @@ const Container = styled.div`
   color: white;
   width: 95%;
   height: 95%;
+
+  @media (max-width: 900px) {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  @media (max-width: 384px) {
+    font-size: 1rem;
+  }
+
+  @media (max-width: 438px) {
+    min-width: 15rem;
+  }
 `;
 
 const ContainerSectionLeft = styled.div`
@@ -251,11 +263,20 @@ const ContainerSectionLeft = styled.div`
   justify-content: space-between;
   height: 50%;
   width: 30%;
+
+  @media (max-width: 900px) {
+    width: 100%;
+  }
 `;
 
 const ContainerSectionRight = styled.div`
   width: 55%;
   height: 50%;
+
+  @media (max-width: 900px) {
+    width: 100%;
+    height: 80%;
+  }
 `;
 
 const ProfileContainer = styled.div`
@@ -287,9 +308,10 @@ const InfoContainer = styled.div`
 const ContainerTracks = styled.div`
   display: flex;
   flex-direction: ${(props) => (props.direction === "liked" ? "column" : "")};
-  overflow: auto;
+  flex-wrap: ${(props) => (props.direction === "liked" ? "" : "wrap")};
   width: 100%;
   height: 100%;
+  overflow: auto;
 
   &::-webkit-scrollbar {
     -webkit-appearance: none;
@@ -320,6 +342,20 @@ const LeftTop = styled.div`
   gap: 1rem;
   width: 100%;
   height: 50%;
+
+  @media (max-width: 1100px) {
+    flex-direction: column;
+  }
+
+  @media (max-width: 900px) {
+    flex-direction: row;
+  }
+  @media (max-width: 900px) {
+    justify-content: space-evenly;
+  }
+  @media (max-width: 492px) {
+    flex-direction: column;
+  }
 `;
 
 const LeftBottom = styled.div`
@@ -332,8 +368,23 @@ const Avatar = styled.img`
   width: 10rem;
   height: 10rem;
   border-radius: 50%;
+
   :hover {
     opacity: 0.4;
+  }
+
+  @media (max-width: 1400px) {
+    width: 100%;
+    height: 100%;
+  }
+  @media (max-width: 1100px) {
+    width: 10rem;
+    height: 10rem;
+  }
+
+  @media (max-width: 900px) {
+    width: 6.5rem;
+    height: 6.5rem;
   }
 `;
 
@@ -364,6 +415,16 @@ const Username = styled.p`
   color: ${Colors.yellow};
   font-size: 2rem;
   margin: 0.5rem 0;
+
+  font-size: 2vw;
+
+  @media (max-width: 1100px) {
+    text-align: center;
+  }
+
+  @media (max-width: 492px) {
+    font-size: 1rem;
+  }
 `;
 
 const Email = styled.p`
@@ -396,6 +457,10 @@ const ContainerButton = styled.div`
   min-height: 3rem;
   border-radius: 10px;
   padding: 0.3rem;
+
+  @media (max-width: 584px) {
+    width: 80%;
+  }
 `;
 
 const Button = styled.button`
@@ -416,6 +481,17 @@ const Button = styled.button`
     opacity: 0.8;
     border: 1px solid transparent;
     background-color: rgba(206, 42, 36);
+  }
+  @media (max-width: 1100px) {
+    font-size: 2vw;
+    width: 100%;
+  }
+
+  @media (max-width: 900px) {
+    width: 70%;
+  }
+  @media (max-width: 492px) {
+    font-size: 1rem;
   }
 `;
 
@@ -519,6 +595,15 @@ const ContainerButtonConfirm = styled.div`
         background-color: #0bdb62;
         color: black;
       }
+    }
+
+    @media (max-width: 1100px) {
+      width: 4rem;
+      height: 2rem;
+      font-size: 1.3vw;
+    }
+    @media (max-width: 550px) {
+      font-size: 0.8rem;
     }
   }
 `;
