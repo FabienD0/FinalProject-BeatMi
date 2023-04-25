@@ -12,11 +12,12 @@ import Beats from "./pages/Beats";
 import Profile from "./pages/Profile";
 import LogIn from "./pages/LogIn";
 import Piano from "./pages/Piano";
+import Error from "./pages/Error";
 import { GeneralContext } from "./components/context/GeneralContext";
 
 const App = () => {
   const { isModalChords, setIsModalChords } = useContext(PlayerContext);
-  const { allBeats, loadingState, user } = useContext(GeneralContext);
+  const { allBeats } = useContext(GeneralContext);
   const [updateBeat, setUpdateBeat] = useState(false);
 
   return (
@@ -46,7 +47,7 @@ const App = () => {
             <Route path="/login" element={<LogIn />} />
             <Route path="/piano" element={<Piano />} />
             <Route path="/404" element={<ErrorPage />} />
-            <Route path="*" element={<ErrorPage />} />
+            <Route path="*" element={<Error />} />
           </Routes>
         </Main>
       </ContainerAll>

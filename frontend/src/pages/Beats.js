@@ -6,6 +6,7 @@ import { GeneralContext, URL } from "../components/context/GeneralContext";
 import AllCards from "../components/homepage/AllCards";
 import { useParams } from "react-router-dom";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import ErrorPage from "./ErrorPage";
 
 const Beats = ({ allBeats }) => {
   const { refreshBeats, setRefreshBeats, loadingState } =
@@ -73,6 +74,11 @@ const Beats = ({ allBeats }) => {
       handleSearch(id);
     }
   }, []);
+
+  /* Error State */
+  if (loadingState === "error") {
+    return <ErrorPage />;
+  }
 
   return (
     <ContainerAll>

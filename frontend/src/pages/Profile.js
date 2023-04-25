@@ -5,9 +5,11 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import Colors from "../utils/Colors";
 import Tracks from "./profile/Tracks";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import ChangeAvatar from "./profile/ChangeAvatar";
 import SmallCardLiked from "./profile/SmallCardLiked";
 import SmallCardTracks from "./profile/SmallCardTracks";
+import ErrorPage from "./ErrorPage";
 
 const Profile = () => {
   const [fade, setFade] = useState(false);
@@ -22,6 +24,7 @@ const Profile = () => {
     setRefreshBeats,
     cookieValue,
     allBeats,
+    loadingState,
   } = useContext(GeneralContext);
   const navigate = useNavigate();
 
@@ -112,6 +115,20 @@ const Profile = () => {
 
   if (!user) {
     return <h1>No user found.</h1>;
+  }
+
+  /* Loading State */
+  if (loadingState === "loading") {
+    return (
+      <Container style={{ justifyContent: "center" }}>
+        <LoadingIcon />
+      </Container>
+    );
+  }
+
+  /* Error State */
+  if (loadingState === "error") {
+    return <ErrorPage />;
   }
 
   return (
@@ -604,6 +621,21 @@ const ContainerButtonConfirm = styled.div`
     }
     @media (max-width: 550px) {
       font-size: 0.8rem;
+    }
+  }
+`;
+
+const LoadingIcon = styled(AiOutlineLoading3Quarters)`
+  color: ${Colors.gray};
+  animation: rotation 1.5s infinite linear;
+  font-size: 5rem;
+
+  @keyframes rotation {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
     }
   }
 `;

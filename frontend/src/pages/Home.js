@@ -7,6 +7,7 @@ import { useContext, useEffect, useState } from "react";
 import { GeneralContext } from "../components/context/GeneralContext";
 import { externalImages } from "../utils/externalImages";
 import LoadingStateHome from "../loaders/LoadingStateHome";
+import ErrorPage from "./ErrorPage";
 
 const Home = () => {
   const [randomBeats, setRandomBeats] = useState([]);
@@ -63,6 +64,11 @@ const Home = () => {
   /* Loading State */
   if (allBeats.length === 0) {
     return <LoadingStateHome />;
+  }
+
+  /* Error State */
+  if (loadingState === "error") {
+    return <ErrorPage />;
   }
 
   return (

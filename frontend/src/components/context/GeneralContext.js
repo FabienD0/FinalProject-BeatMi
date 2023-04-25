@@ -53,8 +53,9 @@ export const GeneralProvider = ({ children }) => {
       .catch(() => setLoadingState("error"));
   }, [refreshBeats]);
 
-  /* Get all beats from the database */
+  /* Get all users from the database */
   useEffect(() => {
+    setLoadingState("loading");
     fetch(`${URL}/api/getAllUsers`)
       .then((res) => res.json())
       .then((data) => {
@@ -67,6 +68,7 @@ export const GeneralProvider = ({ children }) => {
   /* Refresh the user in the frontend */
   useEffect(() => {
     if (user && cookieValue) {
+      setLoadingState("loading");
       fetch(`${URL}/api/getUser`, {
         headers: {
           Authorization: cookieValue,
@@ -78,6 +80,7 @@ export const GeneralProvider = ({ children }) => {
           if (data.status === 200) {
             setUser(data.user);
             console.log("User Updated");
+            setLoadingState("success");
           } else {
             setUser("");
           }

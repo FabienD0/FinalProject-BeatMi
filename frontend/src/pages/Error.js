@@ -2,7 +2,7 @@ import { ImWarning } from "react-icons/im";
 import styled from "styled-components";
 import Colors from "../utils/Colors";
 
-const ErrorPage = () => {
+const Error = () => {
   return (
     <Wrapper>
       <ErrorWrapper>
@@ -10,17 +10,13 @@ const ErrorPage = () => {
         <StyledImWarning />
       </ErrorWrapper>
       <div>
-        <h2>An unknown error has occurred.</h2>
-        <p>
-          Please try refreshing the page, or try again later if the problem
-          persists.
-        </p>
+        <h2>This page doesn't exist.</h2>
       </div>
     </Wrapper>
   );
 };
 
-export default ErrorPage;
+export default Error;
 
 const StyledImWarning = styled(ImWarning)`
   font-size: 160px;
@@ -41,8 +37,14 @@ const Wrapper = styled.div`
   line-height: 35px;
   height: 60vh;
   color: ${Colors.gray};
+  font-size: 28px;
+  text-align: center;
   justify-content: space-around;
   background-color: ${Colors.primary200};
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   padding: 100px;
+
+  h2 {
+    color: ${Colors.yellow};
+  }
 `;
