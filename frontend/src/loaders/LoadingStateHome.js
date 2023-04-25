@@ -1,107 +1,50 @@
 import styled from "styled-components";
 import Colors from "../utils/Colors";
-import MostFavoriteCards from "../components/homepage/MostFavoriteCards";
-import TopArtistsCards from "../components/homepage/TopArtistsCards";
-import AllCards from "../components/homepage/AllCards";
-import { useContext, useEffect, useState } from "react";
-import { GeneralContext } from "../components/context/GeneralContext";
-import { externalImages } from "../utils/externalImages";
-import LoadingStateHome from "../loaders/LoadingStateHome";
+import LoaderHomeMostFavorite from "./LoaderHomeMostFavorite";
+import LoaderHomeTopArtist from "./LoaderHomeTopArtist";
+import LoaderHomeRandom from "./LoaderHomeRandom";
 
-const Home = () => {
-  const [randomBeats, setRandomBeats] = useState([]);
-  const [mostFavoritesBeats, setMostFavoritesBeats] = useState([]);
-  const [topArtists, setTopArtists] = useState([]);
-
-  const { loadingState, allBeats, user } = useContext(GeneralContext);
-
-  /* Generate a random number */
-  const randomNumber = () => {
-    return Math.floor(Math.random() * (allBeats.length - 0 + 1)) + 0;
-  };
-
-  /* Get 6 random beats */
-  useEffect(() => {
-    if (allBeats) {
-      let allBeatsCopy = [...allBeats];
-      while (allBeatsCopy.length > 8) {
-        allBeatsCopy.splice(randomNumber(), 1);
-      }
-      setRandomBeats(allBeatsCopy);
-    }
-  }, [allBeats]);
-
-  /* Get Most Favorite Beats */
-  useEffect(() => {
-    if (allBeats) {
-      let allBeatsCopy = [...allBeats];
-      allBeatsCopy.sort((a, b) => b.likedBy.length - a.likedBy.length);
-      setMostFavoritesBeats(allBeatsCopy.slice(0, 4));
-    }
-  }, [allBeats]);
-
-  /* Get Artists with most likes */
-  useEffect(() => {
-    if (allBeats) {
-      const artistsLike = {};
-
-      allBeats.forEach((beat) => {
-        if (!artistsLike[beat.artist]) {
-          artistsLike[beat.artist] = 0;
-        }
-        artistsLike[beat.artist] += beat.likedBy.length;
-      });
-
-      const artistArray = Object.entries(artistsLike)
-        .sort(([, a], [, b]) => b - a)
-        .slice(0, 4);
-
-      setTopArtists(artistArray);
-    }
-  }, [allBeats]);
-
-  /* Loading State */
-  if (allBeats.length === 0) {
-    return <LoadingStateHome />;
-  }
-
+const LoadingStateHome = () => {
   return (
     <ContainerAll>
       <ContainerSectionTop>
         <ContainerMostFavorite>
           <Title>Most Favorites</Title>
           <MostFavoriteDiv>
-            {mostFavoritesBeats.map((beat, index) => (
-              <MostFavoriteCards
-                key={beat._id}
-                beat={beat}
-                background={externalImages[index]}
-              />
-            ))}
+            <LoaderHomeMostFavorite />
+            <LoaderHomeMostFavorite />
+            <LoaderHomeMostFavorite />
+            <LoaderHomeMostFavorite />
           </MostFavoriteDiv>
         </ContainerMostFavorite>
         <ContainerTopArtist>
           <Title>Top Artists</Title>
           <TopArtistDiv>
-            {topArtists.map((artist) => (
-              <TopArtistsCards key={artist[0]} artist={artist} />
-            ))}
+            <LoaderHomeTopArtist />
+            <LoaderHomeTopArtist />
+            <LoaderHomeTopArtist />
+            <LoaderHomeTopArtist />
           </TopArtistDiv>
         </ContainerTopArtist>
       </ContainerSectionTop>
       <ContainerAllBeats>
         <Title>Random</Title>
         <AllBeatsDiv>
-          {randomBeats.map((beat) => {
-            return <AllCards key={beat._id} beat={beat} />;
-          })}
+          <LoaderHomeRandom />
+          <LoaderHomeRandom />
+          <LoaderHomeRandom />
+          <LoaderHomeRandom />
+          <LoaderHomeRandom />
+          <LoaderHomeRandom />
+          <LoaderHomeRandom />
+          <LoaderHomeRandom />
         </AllBeatsDiv>
       </ContainerAllBeats>
     </ContainerAll>
   );
 };
 
-export default Home;
+export default LoadingStateHome;
 
 const ContainerAll = styled.div`
   display: flex;

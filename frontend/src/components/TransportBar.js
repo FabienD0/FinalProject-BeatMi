@@ -217,14 +217,10 @@ const Container = styled.div`
     props.isModalOpen ? "0px 0px 30px 30px" : "30px"};
   z-index: 5;
   transition: all 500ms ease-in-out;
-`;
 
-const SaveIcon = styled(GiSaveArrow)`
-  color: #c0d1ed;
-`;
-
-const IconModify = styled(MdEditSquare)`
-  color: #c0d1ed;
+  @media (max-width: 700px) {
+    width: 100%;
+  }
 `;
 
 const ContainerButtonLike = styled.button`
@@ -233,7 +229,8 @@ const ContainerButtonLike = styled.button`
   align-items: center;
   justify-content: center;
   text-align: center;
-  width: 5rem;
+  width: 5vw;
+
   height: 3rem;
   border-radius: 20px;
   background: #393e46;
@@ -255,9 +252,10 @@ const ContainerButtonLike = styled.button`
   :disabled {
     opacity: 0.4;
   }
-`;
-const StopIcon = styled(FaStop)`
-  color: #ed1b0c;
+  @media (max-width: 700px) {
+    width: 12vw;
+    height: 2.5rem;
+  }
 `;
 
 const ContainerPlayButton = styled.button`
@@ -266,7 +264,7 @@ const ContainerPlayButton = styled.button`
   align-items: center;
   justify-content: center;
   text-align: center;
-  width: 5rem;
+  width: 5vw;
   height: 3rem;
   border-radius: 20px;
   background: #393e46;
@@ -284,25 +282,11 @@ const ContainerPlayButton = styled.button`
   :active {
     box-shadow: inset 5px 5px 10px #202327, inset -5px -5px 10px #525965;
   }
-`;
 
-const PlayIcon = styled(FaPlay)`
-  color: #0bdb62;
-`;
-const FavoriteIcon = styled(MdFavoriteBorder)`
-  color: #edb1a8;
-`;
-
-const FavoriteIconFull = styled(MdFavorite)`
-  color: #edb1a8;
-`;
-
-const IconComment = styled(BiCommentDetail)`
-  color: #5b87c8;
-`;
-
-const IconCheckGood = styled(AiOutlineCheckCircle)`
-  color: #0bdb62;
+  @media (max-width: 700px) {
+    width: 12vw;
+    height: 2.5rem;
+  }
 `;
 
 const ContainerSaveButton = styled.button`
@@ -311,7 +295,8 @@ const ContainerSaveButton = styled.button`
   align-items: center;
   justify-content: center;
   text-align: center;
-  width: 5rem;
+  width: 5vw;
+
   height: 3rem;
   border-radius: 20px;
   background: #393e46;
@@ -338,6 +323,11 @@ const ContainerSaveButton = styled.button`
       font-size: 1.5rem;
     }
   }
+
+  @media (max-width: 700px) {
+    width: 12vw;
+    height: 2.5rem;
+  }
 `;
 
 const ContainerCommentButton = styled.button`
@@ -346,7 +336,8 @@ const ContainerCommentButton = styled.button`
   align-items: center;
   justify-content: center;
   text-align: center;
-  width: 5rem;
+  width: 5vw;
+
   height: 3rem;
   border-radius: 20px;
   background: #393e46;
@@ -368,6 +359,11 @@ const ContainerCommentButton = styled.button`
 
   :disabled {
     opacity: 0.4;
+  }
+
+  @media (max-width: 700px) {
+    width: 12vw;
+    height: 2.5rem;
   }
 `;
 
@@ -377,7 +373,7 @@ const ContainerModifyButton = styled.button`
   align-items: center;
   justify-content: center;
   text-align: center;
-  width: 5rem;
+  width: 5vw;
   height: 3rem;
   border-radius: 20px;
   background: #393e46;
@@ -399,6 +395,91 @@ const ContainerModifyButton = styled.button`
 
   :disabled {
     opacity: 0.4;
+  }
+
+  @media (max-width: 700px) {
+    width: 12vw;
+    height: 2.5rem;
+  }
+`;
+
+const PlayIcon = styled(FaPlay)`
+  color: #0bdb62;
+  width: 1.6vw;
+  height: auto;
+
+  @media (max-width: 700px) {
+    width: 3vw;
+    height: auto;
+  }
+`;
+
+const StopIcon = styled(FaStop)`
+  color: #ed1b0c;
+  width: 1.6vw;
+  height: auto;
+  @media (max-width: 700px) {
+    width: 3vw;
+    height: auto;
+  }
+`;
+const FavoriteIcon = styled(MdFavoriteBorder)`
+  color: #edb1a8;
+  width: 1.6vw;
+  height: auto;
+  @media (max-width: 700px) {
+    width: 3vw;
+    height: auto;
+  }
+`;
+
+const FavoriteIconFull = styled(MdFavorite)`
+  color: #edb1a8;
+  width: 1.6vw;
+  height: auto;
+  @media (max-width: 700px) {
+    width: 3vw;
+    height: auto;
+  }
+`;
+
+const IconComment = styled(BiCommentDetail)`
+  color: #5b87c8;
+  width: 1.6vw;
+  height: auto;
+  @media (max-width: 700px) {
+    width: 3vw;
+    height: auto;
+  }
+`;
+
+const IconCheckGood = styled(AiOutlineCheckCircle)`
+  color: #0bdb62;
+  width: 1.6vw;
+  height: auto;
+  @media (max-width: 700px) {
+    width: 3vw;
+    height: auto;
+  }
+`;
+
+const SaveIcon = styled(GiSaveArrow)`
+  color: #c0d1ed;
+  width: 1.6vw;
+  height: auto;
+  @media (max-width: 700px) {
+    width: 3vw;
+    height: auto;
+  }
+`;
+
+const IconModify = styled(MdEditSquare)`
+  color: #c0d1ed;
+  width: 1.6vw;
+  height: auto;
+  @media (max-width: 700px) {
+    width: 3vw;
+    height: auto;
   }
 `;
 

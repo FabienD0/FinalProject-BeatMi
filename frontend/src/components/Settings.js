@@ -79,6 +79,10 @@ const Container = styled.div`
     props.isModalOpen ? "0px 0px 30px 30px" : "30px"};
   z-index: 5;
   transition: all 500ms ease-in-out;
+
+  @media (max-width: 700px) {
+    display: none;
+  }
 `;
 
 const ContainerAll = styled.div`

@@ -107,7 +107,7 @@ const ContainerAll = styled.div`
 const Title = styled.p`
   color: ${Colors.gray};
   font-weight: bold;
-  font-size: 1.5rem;
+  font-size: 1rem;
 `;
 
 const ContainerDivision = styled.div`

@@ -187,6 +187,10 @@ const Container = styled.div`
   width: 80vw;
   padding: 1rem;
   overflow-x: auto;
+
+  @media (max-width: 700px) {
+    margin-left: 5rem;
+  }
 `;
 
 const ContainerInstrument = styled.div`
@@ -211,11 +215,14 @@ const Instrument = styled.button`
 
 const ContainerGrid = styled.div`
   display: grid;
-  /* grid-template-columns: ${(props) => `repeat(${props.steps}, 1fr)`}; */
   grid-template-columns: repeat(16, 1fr);
   grid-template-rows: repeat(12, 1fr);
-
   width: 100%;
+
+  @media (max-width: 700px) {
+    width: fit-content;
+    padding-right: 1rem;
+  }
 `;
 
 const Grid = styled.button`
@@ -232,4 +239,8 @@ const Grid = styled.button`
     opacity: 0.5;
   }
   cursor: pointer;
+
+  @media (max-width: 700px) {
+    width: 2rem;
+  }
 `;

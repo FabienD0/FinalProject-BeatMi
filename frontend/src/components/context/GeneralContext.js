@@ -17,9 +17,10 @@ export const GeneralProvider = ({ children }) => {
   const [allUsers, setAllUsers] = useState([]);
   const [refreshBeats, setRefreshBeats] = useState(false);
   const [refreshUser, setRefreshUser] = useState(false);
-  const [loadingState, setLoadingState] = useState("");
+  const [loadingState, setLoadingState] = useState("loading");
   const [user, setUser] = useState(() => {
     if (cookieValue) {
+      setLoadingState("loading");
       fetch(`${URL}/api/getUser`, {
         headers: {
           Authorization: cookieValue,
@@ -30,8 +31,10 @@ export const GeneralProvider = ({ children }) => {
         .then((data) => {
           if (data.status === 200) {
             setUser(data.user);
+            setLoadingState("success");
           } else {
             setUser("");
+            setLoadingState("success");
           }
         });
     }
@@ -39,6 +42,7 @@ export const GeneralProvider = ({ children }) => {
 
   /* Get all beats from the database */
   useEffect(() => {
+    setLoadingState("loading");
     fetch(`${URL}/api/getAllBeats`)
       .then((res) => res.json())
       .then((data) => {
@@ -49,7 +53,6 @@ export const GeneralProvider = ({ children }) => {
       .catch(() => setLoadingState("error"));
   }, [refreshBeats]);
 
-  /*Get all users avatar */
   /* Get all beats from the database */
   useEffect(() => {
     fetch(`${URL}/api/getAllUsers`)

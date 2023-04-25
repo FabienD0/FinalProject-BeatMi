@@ -78,9 +78,11 @@ const Button = styled.button`
   border: 1px solid ${Colors.yellowDarker};
   border-radius: 20px;
   color: ${(props) => (props.isActive ? Colors.primary100 : Colors.gray)};
-
   letter-spacing: 0.1rem;
   transition: all 200ms ease-in-out;
+
+  width: 50%;
+  font-size: 80%;
 
   :hover {
     border: 1px solid transparent;

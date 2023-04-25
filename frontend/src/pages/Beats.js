@@ -5,6 +5,7 @@ import Colors from "../utils/Colors";
 import { GeneralContext, URL } from "../components/context/GeneralContext";
 import AllCards from "../components/homepage/AllCards";
 import { useParams } from "react-router-dom";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const Beats = ({ allBeats }) => {
   const { refreshBeats, setRefreshBeats, loadingState } =
@@ -73,11 +74,6 @@ const Beats = ({ allBeats }) => {
     }
   }, []);
 
-  /* Loading State */
-  if (loadingState === "loading") {
-    return <h1>Loading beats...</h1>;
-  }
-
   return (
     <ContainerAll>
       <ContainerAllBeats>
@@ -133,16 +129,23 @@ const Beats = ({ allBeats }) => {
             </Mood>
           </ContainerMood>
         </ContainerSearch>
-        <ContainerBeats>
-          {!isResultFound &&
-            allBeats.map((beat) => {
-              return <AllCards beat={beat} key={beat._id} />;
-            })}
-          {isResultFound &&
-            resultSearchBeats.map((beat) => {
-              return <AllCards beat={beat} key={beat._id} />;
-            })}
-        </ContainerBeats>
+        {loadingState === "loading" && (
+          <ContainerBeats>
+            <LoadingIcon />
+          </ContainerBeats>
+        )}
+        {loadingState === "success" && (
+          <ContainerBeats>
+            {!isResultFound &&
+              allBeats.map((beat) => {
+                return <AllCards beat={beat} key={beat._id} />;
+              })}
+            {isResultFound &&
+              resultSearchBeats.map((beat) => {
+                return <AllCards beat={beat} key={beat._id} />;
+              })}
+          </ContainerBeats>
+        )}
       </ContainerAllBeats>
     </ContainerAll>
   );
@@ -336,5 +339,20 @@ const ContainerBeats = styled.div`
     border-radius: 12px;
     background: -webkit-linear-gradient(top, #529de1 0, #245e8f 100%);
     background: linear-gradient(to bottom, #529de1 0, #245e8f 100%);
+  }
+`;
+
+const LoadingIcon = styled(AiOutlineLoading3Quarters)`
+  color: ${Colors.gray};
+  animation: rotation 1.5s infinite linear;
+  font-size: 5rem;
+
+  @keyframes rotation {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
   }
 `;

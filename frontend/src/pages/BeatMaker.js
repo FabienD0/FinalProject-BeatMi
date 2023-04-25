@@ -277,6 +277,10 @@ const ContainerBottom = styled.section`
   justify-content: space-between;
   align-items: center;
   width: 80vw;
+  @media (max-width: 700px) {
+    margin-left: 5rem;
+    justify-content: center;
+  }
 `;
 
 const ContainerButtonPagination = styled.div`
@@ -318,6 +322,10 @@ const ButtonAddSteps = styled.button`
     opacity: 0.3;
     cursor: default;
   }
+
+  @media (max-width: 700px) {
+    display: none;
+  }
 `;
 
 const ButtonPagination = styled.button`
@@ -340,6 +348,10 @@ const ButtonPagination = styled.button`
   top: -45px;
 
   transition: all 300ms;
+
+  @media (max-width: 700px) {
+    display: none;
+  }
 
   :hover {
     cursor: pointer;

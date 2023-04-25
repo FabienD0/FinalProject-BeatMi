@@ -201,7 +201,7 @@ const ContainerAll = styled.div`
   justify-content: space-between;
   color: white;
   width: 95%;
-  height: 60vh;
+  height: 37rem;
 `;
 
 const Container = styled.section`
@@ -236,6 +236,10 @@ const LeftContainer = styled.div`
     transition: all 1s;
     -webkit-transition: all 1s;
   }
+
+  @media (max-width: 700px) {
+    display: none;
+  }
 `;
 
 const RightContainer = styled.div`
@@ -252,6 +256,10 @@ const RightContainer = styled.div`
     opacity: 0.5;
     font-style: italic;
   }
+
+  @media (max-width: 700px) {
+    width: 100%;
+  }
 `;
 
 const Title = styled.h2`
@@ -261,6 +269,10 @@ const Title = styled.h2`
   color: ${Colors.gray};
   text-shadow: 0px 4px 3px rgba(0, 0, 0, 0.4), 0px 8px 13px rgba(0, 0, 0, 0.1),
     0px 18px 23px rgba(0, 0, 0, 0.1);
+
+  @media (max-width: 1000px) {
+    font-size: 1.2rem;
+  }
 `;
 
 const ContainerFormChoice = styled.div`
@@ -270,6 +282,13 @@ const ContainerFormChoice = styled.div`
   height: 3rem;
   border-radius: 10px;
   padding: 0.3rem;
+
+  @media (max-width: 1000px) {
+    width: 80%;
+  }
+  @media (max-width: 370px) {
+    font-size: 3vw;
+  }
 `;
 
 const ButtonEffect = styled.div`
@@ -379,6 +398,10 @@ const Input = styled.input`
   &:focus {
     outline: none;
     border: 1px solid ${Colors.yellow};
+  }
+
+  @media (max-width: 1000px) {
+    width: 80%;
   }
 `;
 

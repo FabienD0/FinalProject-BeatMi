@@ -166,6 +166,12 @@ const ContainerModal = styled.div`
   box-shadow: 0px 4px 4px rgba(255, 255, 255, 0.25);
   z-index: 25;
   transition: all 0.4s ease-in-out;
+
+  @media (max-width: 850px) {
+    margin-left: 5rem;
+    left: 40%;
+    width: 80%;
+  }
 `;
 
 const ContainerChordOptions = styled.div`
@@ -220,6 +226,11 @@ const Note = styled.button`
     opacity: 0.4;
     cursor: default;
   }
+
+  @media (max-width: 850px) {
+    width: 7vw;
+    font-size: 5vw;
+  }
 `;
 
 const ContainerTonality = styled.div`
@@ -247,6 +258,10 @@ const ContainerPreviewNote = styled.div`
   color: ${Colors.gray};
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   width: 100%;
+
+  @media (max-width: 850px) {
+    font-size: 8vw;
+  }
 `;
 
 const ContainerButton = styled.div`

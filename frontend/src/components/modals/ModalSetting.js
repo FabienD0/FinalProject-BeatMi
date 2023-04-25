@@ -15,7 +15,7 @@ const ModalSetting = ({
   setSteps,
 }) => {
   return (
-    <Container isModalOpen={isModalOpen}>
+    <Container isModalOpen={isModalOpen} category={modalCategory}>
       <IconButton isModalOpen={isModalOpen}>
         <CloseIcon
           onClick={() => {
@@ -52,6 +52,13 @@ const Container = styled.div`
   left: 0;
   transition: all 500ms ease-in-out;
   z-index: -10;
+
+  @media (max-width: 1600px) {
+    width: ${(props) => (props.category === "settings" ? "140%" : "")};
+  }
+  @media (max-width: 1100px) {
+    width: ${(props) => (props.category === "settings" ? "200%" : "")};
+  }
 `;
 
 const IconButton = styled.button`

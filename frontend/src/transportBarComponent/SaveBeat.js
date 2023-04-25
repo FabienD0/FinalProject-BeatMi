@@ -279,6 +279,10 @@ const Input = styled.input`
     outline: 0.5px solid ${Colors.gray};
     transition: border-color 0.3s ease-in-out;
   }
+
+  @media (max-width: 700px) {
+    width: 95%;
+  }
 `;
 
 const ContainerMood = styled.div`
@@ -306,6 +310,10 @@ const ButtonMood = styled.button`
       font-size: 0.7rem;
       transform: translate(-50%, 0);
     }
+  }
+
+  @media (max-width: 700px) {
+    font-size: 6vw;
   }
 `;
 
@@ -353,5 +361,9 @@ const Button = styled.button`
       border: 1px solid #0bdb62;
       color: ${Colors.gray};
     }
+  }
+
+  @media (max-width: 700px) {
+    margin-right: 1rem;
   }
 `;

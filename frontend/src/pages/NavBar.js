@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Colors from "../utils/Colors";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { AiOutlineHome, AiOutlineUser } from "react-icons/ai";
+import { AiOutlineHome, AiOutlineUser, AiOutlineLogin } from "react-icons/ai";
 import { FiMusic } from "react-icons/fi";
 import { CgPiano } from "react-icons/cg";
 import { SiBeatport } from "react-icons/si";
@@ -53,6 +53,7 @@ const NavBar = () => {
         {!user && (
           <ContainerLinkLogIn to="/login">
             <Title>Log in</Title>
+            <LoginIcon />
           </ContainerLinkLogIn>
         )}
         {user && (
@@ -118,7 +119,7 @@ const NavigationSmall = styled.div`
   border-right: 1px solid rgba(255, 228, 165, 0.3);
   height: 100%;
 
-  @keyframes slideIn {
+  /* @keyframes slideIn {
     0% {
       width: 60%;
     }
@@ -133,7 +134,7 @@ const NavigationSmall = styled.div`
     100% {
       width: 60%;
     }
-  }
+  } */
 `;
 
 const Logo = styled.img`
@@ -306,5 +307,14 @@ const CloseIcon = styled(AiFillCloseCircle)`
   cursor: pointer;
   :hover {
     opacity: 0.7;
+  }
+`;
+
+const LoginIcon = styled(AiOutlineLogin)`
+  font-size: 2rem;
+  display: none;
+
+  @media (max-width: 1000px) {
+    display: inline;
   }
 `;

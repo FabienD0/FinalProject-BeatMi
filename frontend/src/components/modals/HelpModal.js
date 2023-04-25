@@ -62,6 +62,15 @@ const Container = styled.div`
   width: ${(props) => (props.modal ? "35rem" : "")};
   height: 20rem;
   z-index: 24;
+
+  @media (max-width: 1276px) {
+    top: 33%;
+    left: 20px;
+    transform: translateY(-50%);
+  }
+  @media (max-width: 750px) {
+    display: none;
+  }
 `;
 
 const ContainerTooltip = styled.div`

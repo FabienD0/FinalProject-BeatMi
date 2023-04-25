@@ -136,6 +136,11 @@ const Container = styled.div`
   justify-content: space-between;
   min-height: 4rem;
   width: 80vw;
+
+  @media (max-width: 700px) {
+    margin-left: 5rem;
+    overflow: auto;
+  }
 `;
 
 const ContainerButton = styled.div`
@@ -144,6 +149,10 @@ const ContainerButton = styled.div`
   justify-content: space-between;
   min-height: 4rem;
   width: 80vw;
+
+  @media (max-width: 700px) {
+    width: 30rem;
+  }
 `;
 
 const ChordButton = styled.button`
@@ -166,6 +175,10 @@ const ChordButton = styled.button`
 
   :hover {
     opacity: 0.8;
+  }
+
+  @media (max-width: 700px) {
+    font-size: 20px;
   }
 `;
 
@@ -194,11 +207,26 @@ const ShuffleIcon = styled(BiShuffle)`
   position: absolute;
   width: 3rem;
   height: auto;
-  left: -50px;
+  left: -3vw;
   color: ${Colors.gray};
 
   :hover {
     opacity: 0.6;
     cursor: pointer;
+  }
+
+  @media (max-width: 1276px) {
+    left: 50%;
+    transform: translateX(-50%);
+    top: -25px;
+    width: 2rem;
+    height: auto;
+  }
+  @media (max-width: 700px) {
+    left: 50%;
+    transform: translateX(-50%);
+    top: 18px;
+    width: 1.5rem;
+    height: auto;
   }
 `;
