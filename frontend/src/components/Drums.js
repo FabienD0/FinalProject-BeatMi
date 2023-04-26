@@ -1,4 +1,3 @@
-import * as Tone from "tone";
 import styled from "styled-components";
 import Colors, { handleColor } from "../utils/Colors";
 import { PlayerContext } from "./context/PlayerContext";

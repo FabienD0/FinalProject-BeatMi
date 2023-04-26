@@ -1,7 +1,5 @@
 import styled from "styled-components";
 import Colors from "../../utils/Colors";
-import { MdFavoriteBorder, MdFavorite } from "react-icons/md";
-import { BiCommentDetail } from "react-icons/bi";
 import { NavLink } from "react-router-dom";
 
 const MostFavoriteCards = ({ beat, background }) => {

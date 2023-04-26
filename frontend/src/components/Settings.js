@@ -10,7 +10,7 @@ const Settings = ({ setSpeed, speed }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalCategory, setModalCategory] = useState("");
 
-  //Function to handle the CLICK on the ICON with the modal
+  /*Function to handle the CLICK on the ICON with the modal*/
   const handleModal = (category) => {
     if (modalCategory === category) {
       if (isModalOpen) {

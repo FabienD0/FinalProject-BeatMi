@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { PlayerContext } from "./components/context/PlayerContext";
 import GlobalStyle from "./styles/globalStyles";
 import NavBar from "./pages/NavBar";

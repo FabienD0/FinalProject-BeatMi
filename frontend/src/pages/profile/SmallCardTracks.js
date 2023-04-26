@@ -121,7 +121,6 @@ const ContainerInfo = styled.div`
 `;
 
 const BeatName = styled.h3`
-  /* text-align: center; */
   color: ${Colors.yellow};
   letter-spacing: 0.13em;
   margin-bottom: 0.3rem;

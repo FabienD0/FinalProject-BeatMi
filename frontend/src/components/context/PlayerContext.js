@@ -44,7 +44,7 @@ export const PlayerProvider = ({ children }) => {
     refresh: false,
   });
 
-  //Note for the Melody
+  /*Note for the Melody*/
   const melodyNotes = [
     `C${octave}`,
     `C#${octave}`,
@@ -60,7 +60,7 @@ export const PlayerProvider = ({ children }) => {
     `B${octave}`,
   ].reverse();
 
-  //Note For Drum
+  /*Note For Drum*/
   const drumNotes = ["A4", "A3", "A2", "A1"];
 
   useEffect(() => {

@@ -7,7 +7,7 @@ export const CLOUDINARY_URL = process.env.REACT_APP_CLOUDINARY_URL;
 export const PRESET_NAME = process.env.REACT_APP_PRESET_NAME;
 
 export const GeneralProvider = ({ children }) => {
-  //Cookie JWT
+  /*Cookie JWT*/
   const cookieValue = document.cookie
     .split(";")
     .find((row) => row.startsWith("jwt"))

@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react";
 import { useState } from "react";
 import styled from "styled-components";
 import Colors from "../utils/Colors";
-import { GeneralContext, URL } from "../components/context/GeneralContext";
+import { GeneralContext } from "../components/context/GeneralContext";
 import AllCards from "../components/homepage/AllCards";
 import { useParams } from "react-router-dom";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";

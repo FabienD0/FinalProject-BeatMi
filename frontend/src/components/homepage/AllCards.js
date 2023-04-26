@@ -3,8 +3,7 @@ import { FaPlay } from "react-icons/fa";
 import styled from "styled-components";
 import Colors from "../../utils/Colors";
 import { NavLink } from "react-router-dom";
-import { useEffect } from "react";
-import { GeneralContext, URL } from "../context/GeneralContext";
+import { GeneralContext } from "../context/GeneralContext";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const AllCards = ({ beat }) => {
@@ -12,6 +11,7 @@ const AllCards = ({ beat }) => {
 
   const { allUsers } = useContext(GeneralContext);
 
+  /* Get the avatar of the artist */
   const [avatarFilter] = allUsers.filter((user) =>
     user.beatCreated.includes(beat._id)
   );

@@ -1,5 +1,5 @@
-import { useContext, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { GeneralContext, URL } from "../components/context/GeneralContext";
 import styled from "styled-components";
 import Colors from "../utils/Colors";

@@ -15,6 +15,7 @@ import {
   initialCellStateDrum,
   initialCellStateMelody,
 } from "../utils/initialStates";
+import { GeneralContext } from "../components/context/GeneralContext";
 
 const BeatMaker = ({ allBeats }) => {
   //Context
@@ -39,6 +40,8 @@ const BeatMaker = ({ allBeats }) => {
     steps,
     setSteps,
   } = useContext(PlayerContext);
+
+  const { loadingState } = useContext(GeneralContext);
   //State
   const [currentStep, setCurrentStep] = useState(0);
   const [currentStepPiano, setCurrentStepPiano] = useState(0);
@@ -60,6 +63,8 @@ const BeatMaker = ({ allBeats }) => {
   const addSteps = () => {
     setIsLoading(true);
     setSteps((prev) => prev + 16);
+
+    //Drum
     const sequenceDrumAddSteps = drumAndMelody.drum.map((row) => {
       const newRow = [...row];
       for (let i = 0; i < 16; i++) {
@@ -68,6 +73,7 @@ const BeatMaker = ({ allBeats }) => {
       return newRow;
     });
 
+    //Melody
     const sequenceMelodyAddSteps = drumAndMelody.melody.map((row) => {
       const newRow = [...row];
       for (let i = 0; i < 16; i++) {
@@ -90,7 +96,7 @@ const BeatMaker = ({ allBeats }) => {
 
   /*Load a beat already made*/
   useEffect(() => {
-    if (id) {
+    if (id && loadingState === "success") {
       const [getBeatPreset] = allBeats.filter((beat) => beat._id === id);
       const sequenceCopy = [
         ...getBeatPreset.drumAndMelody.drum,
@@ -109,7 +115,7 @@ const BeatMaker = ({ allBeats }) => {
     } else {
       setIsLoading(false);
     }
-  }, [id]);
+  }, [id, allBeats]);
 
   /*Clean Track when you start*/
   useEffect(() => {
@@ -122,8 +128,8 @@ const BeatMaker = ({ allBeats }) => {
   }, []);
 
   /*The sequencer move and read each cell 
-  The first loop is used to analyze which part of the instrument
-  The second loop is for each steps(grid) of that instrument*/
+  /*The first loop is used to analyze which part of the instrument
+  /*The second loop is for each steps(grid) of that instrument*/
   const nextStep = (time) => {
     for (let i = 0; i < sequence.length; i++) {
       for (let y = 0; y < sequence[i].length; y++) {
@@ -149,7 +155,7 @@ const BeatMaker = ({ allBeats }) => {
     setSequence(sequence);
   };
 
-  //Refresh for clear settings
+  /*Refresh for clear settings*/
   useEffect(() => {
     if (clearInstrument.refresh) {
       setSequence([...drumAndMelody.drum, ...drumAndMelody.melody]);
@@ -194,8 +200,9 @@ const BeatMaker = ({ allBeats }) => {
     };
   }, [currentStep, isPlaying, steps]);
 
+  /* Loading State */
   if (isLoading) {
-    return <h1> Loading..</h1>;
+    return <h1>Loading..</h1>;
   }
 
   return (

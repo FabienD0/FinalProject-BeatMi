@@ -15,6 +15,7 @@ const NavBar = () => {
   const { user, setUser } = useContext(GeneralContext);
   const navigate = useNavigate();
 
+  /* Logout function, delete JWT Cookie */
   const handleLogOut = () => {
     setUser("");
     setIsModal(false);
@@ -118,28 +119,10 @@ const NavigationSmall = styled.div`
   border-radius: 0px 45px 45px 0px;
   border-right: 1px solid rgba(255, 228, 165, 0.3);
   height: 100%;
-
-  /* @keyframes slideIn {
-    0% {
-      width: 60%;
-    }
-    100% {
-      width: 100%;
-    }
-  }
-  @keyframes slideOut {
-    0% {
-      width: 100%;
-    }
-    100% {
-      width: 60%;
-    }
-  } */
 `;
 
 const Logo = styled.img`
   width: 10rem;
-  /* width: 70%; */
   opacity: 0.8;
   transition: all 0.5s;
 

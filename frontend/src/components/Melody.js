@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import Colors, { handleColor } from "../utils/Colors";
 import { arrayNote } from "../utils/data";

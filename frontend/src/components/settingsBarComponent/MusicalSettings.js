@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Colors from "../../utils/Colors";
 import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { PlayerContext } from "../context/PlayerContext";
 import { Scale } from "tonal";
 import { arrayNote } from "../../utils/data";
@@ -9,7 +9,7 @@ import { arrayNote } from "../../utils/data";
 const MusicalSettings = ({ isModalOpen, speed, setSpeed }) => {
   const { setScale, octave, setOctave } = useContext(PlayerContext);
 
-  //Set the scale on select OPTION
+  /*Set the scale on select OPTION*/
   const handleChange = (value) => {
     if (value === "DEFAULT") {
       setScale(arrayNote);

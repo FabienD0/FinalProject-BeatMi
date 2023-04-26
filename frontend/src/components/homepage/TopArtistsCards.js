@@ -9,6 +9,7 @@ import { NavLink } from "react-router-dom";
 const TopArtistsCards = ({ artist }) => {
   const { allUsers } = useContext(GeneralContext);
 
+  /* Filter artist who made the beat */
   const [filterArtist] = allUsers.filter((user) => user.username === artist[0]);
 
   return (
@@ -50,7 +51,6 @@ const ArtistPicture = styled.img`
 `;
 
 const ContainerInfo = styled.div`
-  /* border: 1px solid red; */
   width: 70%;
 `;
 

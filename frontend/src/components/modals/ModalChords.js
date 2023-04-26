@@ -18,8 +18,8 @@ const Modal = ({ isModalChords, setIsModalChords, chordNumber, setChord }) => {
     useContext(PlayerContext);
 
   /*Function to preview the chord and
-    send the chord to context if
-    the user press click on CONFIRM */
+  /*send the chord to context if
+  /*the user press click on CONFIRM */
   const handlePress = (type) => {
     const chordReturn = `${chordRef.current.note}${chordRef.current.tonality}`;
     const chordPianoReturn = Chord.getChord(
@@ -46,7 +46,7 @@ const Modal = ({ isModalChords, setIsModalChords, chordNumber, setChord }) => {
     }
   };
 
-  //Function when press on CANCEL button
+  /*Function when press on CANCEL button*/
   const handleClose = () => {
     setChord((prevChord) => ({ ...prevChord, [chordNumber]: "" }));
     setChordName((prevChord) => ({ ...prevChord, [chordNumber]: "" }));
@@ -58,7 +58,7 @@ const Modal = ({ isModalChords, setIsModalChords, chordNumber, setChord }) => {
     setIsModalChords(false);
   };
 
-  //Function to choose the root note
+  /*Function to choose the root note*/
   const handleNote = (note) => {
     if (chordRef.current.isFlat) {
       setCurrentNoteActive(note);

@@ -6,6 +6,8 @@ import { PlayerContext } from "./context/PlayerContext";
 import { BiShuffle } from "react-icons/bi";
 import { chordShuffle } from "../utils/chordShuffle";
 import { Chord, transpose, Scale } from "tonal";
+import { useParams } from "react-router-dom";
+import { GeneralContext } from "./context/GeneralContext";
 
 const Chords = ({ currentChordTriggered }) => {
   //Context
@@ -19,14 +21,26 @@ const Chords = ({ currentChordTriggered }) => {
     setChordName,
   } = useContext(PlayerContext);
 
+  const { loadingState, allBeats } = useContext(GeneralContext);
+
   //State
   const [chordNumber, setChordNumber] = useState();
   const [chord, setChord] = useState(chordName);
+
+  const { id } = useParams();
+
   //Handle Modal
   const handleModal = (number) => {
     setChordNumber(number);
     setIsModalChords(true);
   };
+
+  /* If we load the page with an ID */
+  useEffect(() => {
+    if (id && loadingState === "success") {
+      setChord(chordName);
+    }
+  }, [id, allBeats]);
 
   /* Reset Melody Pad */
   useEffect(() => {

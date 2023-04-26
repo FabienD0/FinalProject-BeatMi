@@ -34,7 +34,8 @@ const TransportBar = ({
     chordName,
     steps,
   } = useContext(PlayerContext);
-  const { user, setRefreshUser, cookieValue } = useContext(GeneralContext);
+  const { user, setRefreshUser, cookieValue, loadingState } =
+    useContext(GeneralContext);
   const { id } = useParams();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalCategory, setModalCategory] = useState("");
@@ -51,7 +52,7 @@ const TransportBar = ({
 
   /*Block the save button if it's a beat from the database*/
   useEffect(() => {
-    if (id) {
+    if (id && loadingState === "success") {
       setIsBeatSaved(true);
       const [beatModifyFilter] = allBeats.filter((beat) => beat._id === id);
       if (beatModifyFilter.isEdit) {
@@ -114,7 +115,7 @@ const TransportBar = ({
     }
   };
 
-  /* Function to Modify the Best */
+  /* Function to Modify the Beat */
   const handleModifyBeat = () => {
     setBeatModifyStatus("loading");
     const newDataBeat = {

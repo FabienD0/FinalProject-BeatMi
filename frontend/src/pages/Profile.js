@@ -4,7 +4,6 @@ import { GeneralContext, URL } from "../components/context/GeneralContext";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import Colors from "../utils/Colors";
-import Tracks from "./profile/Tracks";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import ChangeAvatar from "./profile/ChangeAvatar";
 import SmallCardLiked from "./profile/SmallCardLiked";

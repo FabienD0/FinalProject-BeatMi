@@ -15,7 +15,7 @@ const CommentBeat = ({ isModalOpen }) => {
   const [isRefresh, setIsRefresh] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const { user, allBeats } = useContext(GeneralContext);
+  const { user } = useContext(GeneralContext);
   const { id } = useParams();
 
   /* Get all comments of a beat */
@@ -36,9 +36,9 @@ const CommentBeat = ({ isModalOpen }) => {
 
   /* Function to comment a beat */
   const handleSendComment = (e) => {
-    if (user) {
+    e.preventDefault();
+    if (user && comment.length >= 3) {
       setIsLoading(true);
-      e.preventDefault();
       setComment("");
       fetch(`${URL}/api/addCommentBeat`, {
         method: "PATCH",

@@ -20,21 +20,21 @@ const VolumeMixer = ({ isModalOpen }) => {
   });
   const [isRefresh, setIsRefresh] = useState(false);
 
-  //Function to change the volume of the drum
+  /*Function to change the volume of the instrument*/
   const handleVolume = (e, instrument, player) => {
     volumesRef.current[instrument] = parseInt(e.target.value);
     player.volume.value = volumesRef.current[instrument];
     setIsRefresh(!isRefresh);
   };
 
-  //Function to reset default volume
+  /*Function to reset default volume*/
   const handleReset = (e, player) => {
     e.preventDefault();
     player.volume.value = 0;
     setIsRefresh(!isRefresh);
   };
 
-  //Function to mute an instrument(don't loose the previous volume value)
+  /*Function to mute an instrument (don't loose the previous volume value)*/
   const handleMute = (instrument, player) => {
     if (player.volume.value === -200) {
       player.volume.value = volumeMemory[instrument];

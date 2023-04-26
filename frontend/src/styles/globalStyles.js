@@ -39,7 +39,6 @@ html, body, div, span, applet, object, iframe,
       line-height: 1;
       background-color: ${Colors.primary100};
       overflow: auto;
-      /* font-family: 'Poppins', sans-serif; */
       font-family: 'Merriweather Sans', sans-serif;
   }
   ol, ul {
