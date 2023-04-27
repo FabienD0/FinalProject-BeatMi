@@ -35,7 +35,8 @@ const {
   removeAvatar,
 } = require("./handlerUsers");
 
-const PORT = 8000;
+const PORT = process.env.PORT || 8080;
+
 require("./auth/config/passport")(passport);
 
 express()
