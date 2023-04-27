@@ -6,12 +6,14 @@ const { MongoClient } = require("mongodb");
 const fs = require("fs");
 const path = require("path");
 
-const pathToKey = path.join(__dirname, "..", "id_rsa_pub.pem");
-const PUB_KEY = fs.readFileSync(pathToKey, "utf8");
+// const pathToKey = path.join(__dirname, "..", "id_rsa_pub.pem");
+// const PUB_KEY = fs.readFileSync(pathToKey, "utf8");
+const PRIVATE_KEY = process.env.PRIVATE_KEY2;
 
 const options = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey: PUB_KEY,
+  // secretOrKey: PUB_KEY,
+  secretOrKey: PRIVATE_KEY,
   algorithms: ["RS256"],
 };
 
