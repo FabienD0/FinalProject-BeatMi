@@ -3,8 +3,9 @@ const jsonwebtoken = require("jsonwebtoken");
 const fs = require("fs");
 const path = require("path");
 
-const pathToKey = path.join(__dirname, "..", "id_rsa_priv.pem");
-const PRIV_KEY = fs.readFileSync(pathToKey, "utf8");
+// const pathToKey = path.join(__dirname, "..", "id_rsa_priv.pem");
+// const PRIV_KEY = fs.readFileSync(pathToKey, "utf8");
+const PRIVATE_KEY = process.env.PRIVATE_KEY2;
 
 //Verify if the password entered by the user matched the on in the DB
 const validPassword = (password, hash, salt) => {
@@ -38,7 +39,7 @@ const issueJWT = (user) => {
     iat: Date.now(),
   };
 
-  const signedToken = jsonwebtoken.sign(payload, PRIV_KEY, {
+  const signedToken = jsonwebtoken.sign(payload, PRIVATE_KEY, {
     expiresIn: expiresIn,
     algorithm: "RS256",
   });
