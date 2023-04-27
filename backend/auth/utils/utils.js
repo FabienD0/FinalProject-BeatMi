@@ -5,7 +5,7 @@ const path = require("path");
 
 // const pathToKey = path.join(__dirname, "..", "id_rsa_priv.pem");
 // const PRIV_KEY = fs.readFileSync(pathToKey, "utf8");
-const PRIVATE_KEY = process.env.PRIVATE_KEY2;
+// const PRIVATE_KEY = process.env.PRIVATE_KEY2;
 
 //Verify if the password entered by the user matched the on in the DB
 const validPassword = (password, hash, salt) => {
@@ -29,7 +29,7 @@ const genPassword = (password) => {
 };
 
 //Used for the payload in the MongoDB user ID
-const issueJWT = (user) => {
+const issueJWT = (user, PRIVATE_KEY) => {
   const _id = user._id;
 
   const expiresIn = "14d";

@@ -35,7 +35,7 @@ const {
   removeAvatar,
 } = require("./handlerUsers");
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8000;
 
 require("./auth/config/passport")(passport);
 
@@ -50,7 +50,8 @@ express()
       "Access-Control-Allow-Headers",
       "Origin, X-Requested-With, Content-Type, Accept,Authorization"
     );
-    res.header("Access-Control-Allow-Origin", "https://beatmi.onrender.com");
+    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+    // res.header("Access-Control-Allow-Origin", "https://beatmi.onrender.com");
     next();
   })
   .use(morgan("tiny"))

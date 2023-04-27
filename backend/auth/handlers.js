@@ -3,6 +3,7 @@ const { MongoClient } = require("mongodb");
 const { genPassword, validPassword, issueJWT } = require("./utils/utils");
 require("dotenv").config();
 const { MONGO_URI } = process.env;
+const PRIVATE_KEY = process.env.PRIVATE_KEY2;
 
 const options = {
   useNewUrlParser: true,
@@ -60,7 +61,7 @@ const loginUser = async (req, res) => {
     const isValid = validPassword(req.body.password, user.hash, user.salt);
 
     if (isValid) {
-      const tokenObject = issueJWT(user);
+      const tokenObject = issueJWT(user, PRIVATE_KEY);
 
       res.status(200).json({
         status: 200,
@@ -78,6 +79,7 @@ const loginUser = async (req, res) => {
 
     client.close();
   } catch (err) {
+    console.log(err);
     res.status(500).json({ status: 500, message: err.message });
   }
 };
