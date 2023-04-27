@@ -77,7 +77,7 @@ const loginUser = async (req, res) => {
     }
 
     client.close();
-  } catch {
+  } catch (err) {
     res.status(500).json({ status: 500, message: err.message });
   }
 };
