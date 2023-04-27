@@ -53,7 +53,7 @@ express()
     res.header(
       "Access-Control-Allow-Origin",
       "http://localhost:3000",
-      "https://beatmi.onrender.com/"
+      "https://beatmi.onrender.com"
     );
     next();
   })
