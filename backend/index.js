@@ -51,7 +51,6 @@ express()
       "Origin, X-Requested-With, Content-Type, Accept,Authorization"
     );
     res.header("Access-Control-Allow-Origin", process.env.HEADER_CONTROL);
-    // res.header("Access-Control-Allow-Origin", "https://beatmi.onrender.com");
     next();
   })
   .use(morgan("tiny"))

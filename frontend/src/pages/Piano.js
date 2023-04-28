@@ -171,18 +171,20 @@ const Piano = () => {
             <WhiteKey
               key={index}
               id={key.key}
-              onMouseUp={(e) => handleMouseUp(e)}
-              onTouchEnd={(e) => handleMouseUp(e)}
-              onMouseDown={(e) => handleMouseDown(e, "white", index)}
-              onTouchStart={(e) => handleMouseDown(e, "white", index)}
+              // onMouseUp={(e) => handleMouseUp(e)}
+              onPointerUp={(e) => handleMouseUp(e)}
+              // onMouseDown={(e) => handleMouseDown(e, "white", index)}
+              onPointerDown={(e) => handleMouseDown(e, "white", index)}
               backgroundColor={key.color}
             >
               {index % 7 !== 2 && index % 7 !== 6 && (
                 <BlackKey
                   id={index}
                   className={key.key}
-                  onMouseUp={(e) => handleMouseUp(e, "black", index)}
-                  onMouseDown={(e) => handleMouseDown(e, "black", index)}
+                  // onMouseUp={(e) => handleMouseUp(e, "black", index)}
+                  onPointerUp={(e) => handleMouseUp(e, "black", index)}
+                  // onMouseDown={(e) => handleMouseDown(e, "black", index)}
+                  onPointerDown={(e) => handleMouseDown(e, "black", index)}
                 >
                   <p>{getKeyboardKey(index)}</p>
                 </BlackKey>
