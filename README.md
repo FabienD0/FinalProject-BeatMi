@@ -71,7 +71,7 @@ I had to play a lot with the backend. For example, if a user deletes their accou
 ``MONGO_URI= (your MongoDb connection string)``<br/>
 ``CLOUDINARY_API_SECRET= (your Cloudinary secret key)``<br/>
 ``PRIVATE_KEY2= (copy/paste between apostrophe('') the crypto private key that you generated before) ``<br/>
-- in ``index.js`` remove ``res.header("Access-Control-Allow-Origin", "https://beatmi.onrender.com");``<b>(line 53)</b><br/> and uncomment ``res.header("Access-Control-Allow-Origin", "http://localhost:3000");``
+``HEADER_CONTROL="http://localhost:3000"``
 - ``yarn start``
 
 ### Frontend
