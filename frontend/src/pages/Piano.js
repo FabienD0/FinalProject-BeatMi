@@ -172,7 +172,9 @@ const Piano = () => {
               key={index}
               id={key.key}
               onMouseUp={(e) => handleMouseUp(e)}
+              onTouchEnd={(e) => handleMouseUp(e)}
               onMouseDown={(e) => handleMouseDown(e, "white", index)}
+              onTouchStart={(e) => handleMouseDown(e, "white", index)}
               backgroundColor={key.color}
             >
               {index % 7 !== 2 && index % 7 !== 6 && (

@@ -279,6 +279,8 @@ const ContainerSectionLeft = styled.div`
   justify-content: space-between;
   height: 50%;
   width: 30%;
+  width: 30rem;
+  margin-right: 1rem;
 
   @media (max-width: 900px) {
     width: 100%;
