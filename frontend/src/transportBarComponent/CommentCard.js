@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useContext } from "react";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { useParams } from "react-router-dom";
+import { FcCancel } from "react-icons/fc";
 
 const CommentCard = ({ comment, userId, commentId, setIsRefresh }) => {
   const [avatar, setAvatar] = useState("");
@@ -27,9 +28,15 @@ const CommentCard = ({ comment, userId, commentId, setIsRefresh }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        setAvatar(data.avatar);
-        setUsername(data.username);
-        setIsLoading(false);
+        if (data.status === 404) {
+          setIsLoading(false);
+          setUsername("User deleted");
+          return;
+        } else {
+          setAvatar(data.avatar);
+          setUsername(data.username);
+          setIsLoading(false);
+        }
       })
       .catch((err) => console.log(err));
   }, []);
@@ -68,7 +75,8 @@ const CommentCard = ({ comment, userId, commentId, setIsRefresh }) => {
 
   return (
     <ContainerComments>
-      <ProfileAvatar src={avatar} />
+      {avatar && <ProfileAvatar src={avatar} />}
+      {!avatar && <FcCancel />}
       <ContainerText>
         <ProfileName>{username}</ProfileName>
         <ProfileComment>{comment}</ProfileComment>
