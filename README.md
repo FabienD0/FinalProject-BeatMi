@@ -10,6 +10,7 @@ BeatMi, Music Sequencer
 
 
 ### <b><a href="http://beatmi.com"><p align="center">🔗BeatMi.com</p></a></b>
+### <b><a href="https://vimeo.com/manage/videos/822198682"><p align="center">📽️Demo</p></a></b>
 
 #
 
