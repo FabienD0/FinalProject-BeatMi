@@ -10,7 +10,7 @@ import { useContext } from "react";
 import { GeneralContext } from "../components/context/GeneralContext";
 import { AiFillCloseCircle } from "react-icons/ai";
 
-const NavBar = () => {
+const NavBar = ({ setIsModalAbout }) => {
   const [isModal, setIsModal] = useState(false);
   const { user, setUser } = useContext(GeneralContext);
   const navigate = useNavigate();
@@ -26,9 +26,9 @@ const NavBar = () => {
   return (
     <NavigationFull>
       <NavigationSmall>
-        <NavLink to="/" style={{ all: "unset" }}>
+        <button onClick={() => setIsModalAbout(true)} style={{ all: "unset" }}>
           <Logo src="/images/logo.png" alt="logo" />
-        </NavLink>
+        </button>
         <ContainerLinkAll>
           <ContainerLink to="/">
             <AiOutlineHome />

@@ -13,20 +13,29 @@ import Profile from "./pages/Profile";
 import LogIn from "./pages/LogIn";
 import Piano from "./pages/Piano";
 import Error from "./pages/Error";
+import AboutModal from "./components/modals/AboutModal";
 import { GeneralContext } from "./components/context/GeneralContext";
+import Colors from "./utils/Colors";
 
 const App = () => {
   const { isModalChords, setIsModalChords } = useContext(PlayerContext);
   const { allBeats } = useContext(GeneralContext);
   const [updateBeat, setUpdateBeat] = useState(false);
+  const [isModalAbout, setIsModalAbout] = useState(false);
 
   return (
     <BrowserRouter>
       <GlobalStyle />
       <ContainerAll>
-        {isModalChords && <Overlay setIsModalChords={setIsModalChords} />}
-        <NavBar />
+        {(isModalChords || isModalAbout) && (
+          <Overlay
+            setIsModalChords={setIsModalChords}
+            setIsModalAbout={setIsModalAbout}
+          />
+        )}
+        <NavBar setIsModalAbout={setIsModalAbout} />
         <Main>
+          <AboutModal isModalAbout={isModalAbout} />
           <Routes>
             <Route path="/" element={<Home allBeats={allBeats} />} />
             <Route

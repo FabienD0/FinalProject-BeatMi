@@ -49,7 +49,7 @@ const Container = styled.div`
   cursor: pointer;
   justify-content: space-evenly;
   height: 30%;
-  margin: 0rem 1rem;
+  margin: 0.5rem 1rem;
   width: 18rem;
   padding: 1rem;
   border-radius: 25px;

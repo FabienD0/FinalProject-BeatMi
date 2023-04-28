@@ -1,7 +1,14 @@
 import styled from "styled-components";
 
-const Overlay = ({ setIsModalChords }) => {
-  return <Container onClick={() => setIsModalChords(false)}></Container>;
+const Overlay = ({ setIsModalChords, setIsModalAbout }) => {
+  return (
+    <Container
+      onClick={() => {
+        setIsModalAbout(false);
+        setIsModalChords(false);
+      }}
+    ></Container>
+  );
 };
 
 export default Overlay;
