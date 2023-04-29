@@ -5,7 +5,7 @@
 BeatMi, Music Sequencer 
 </h1>
 
-<p align="center">A dynamic music sequencer application that offers a <b>unique</b> and <b>engaging</b> platform to <b>create</b>, <b>share</b> and <b>interact</b> with beats.<br/><br/>With <b><a href="http://beatmi.com">BeatMi</a></b>, you have the ability to create your own beats, which includes <b>chords</b>, <b>melody</b>, and <b>drum patterns</b>.</p>
+<p align="center">A dynamic music sequencer website that offers a <b>unique</b> and <b>engaging</b> platform to <b>create</b>, <b>share</b> and <b>interact</b> with beats.<br/><br/>With <b><a href="http://beatmi.com">BeatMi</a></b>, you have the ability to create your own beats, which includes <b>chords</b>, <b>melody</b>, and <b>drum patterns</b>.</p>
 
 
 
