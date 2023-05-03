@@ -171,9 +171,7 @@ const Piano = () => {
             <WhiteKey
               key={index}
               id={key.key}
-              // onMouseUp={(e) => handleMouseUp(e)}
               onPointerUp={(e) => handleMouseUp(e)}
-              // onMouseDown={(e) => handleMouseDown(e, "white", index)}
               onPointerDown={(e) => handleMouseDown(e, "white", index)}
               backgroundColor={key.color}
             >
@@ -181,9 +179,7 @@ const Piano = () => {
                 <BlackKey
                   id={index}
                   className={key.key}
-                  // onMouseUp={(e) => handleMouseUp(e, "black", index)}
                   onPointerUp={(e) => handleMouseUp(e, "black", index)}
-                  // onMouseDown={(e) => handleMouseDown(e, "black", index)}
                   onPointerDown={(e) => handleMouseDown(e, "black", index)}
                 >
                   <p>{getKeyboardKey(index)}</p>
@@ -211,11 +207,18 @@ const Container = styled.div`
     align-items: center;
     overflow: auto;
   }
+  @media (max-width: 600px) {
+    height: 50rem;
+  }
 `;
 
 const ContainerTitle = styled.div`
   text-align: center;
   width: 100%;
+
+  @media (max-width: 600px) {
+    display: none;
+  }
 `;
 
 const ContainerBottom = styled.div`
@@ -309,8 +312,17 @@ const ContainerPiano = styled.div`
     height: 20rem;
     margin-left: 10rem;
   }
+
+  @media (max-width: 600px) {
+    margin-left: 2rem;
+    width: 45rem;
+    height: 20rem;
+    transform: rotate(90deg);
+  }
+
   @media (max-width: 426px) {
-    margin-left: 15rem;
+    margin-left: 5rem;
+    height: 15rem;
   }
 `;
 
@@ -363,10 +375,6 @@ const VolumeBar = styled.span`
   width: calc(100% / 7);
   border-radius: 2px;
   transition: all 0.1s;
-
-  @media (max-width: 600px) {
-    display: none;
-  }
 `;
 
 const Slider = styled.input`
@@ -408,10 +416,6 @@ const Slider = styled.input`
     bottom: -25px;
     left: 50%;
     transform: translateX(-50%);
-  }
-
-  @media (max-width: 600px) {
-    display: none;
   }
 `;
 
@@ -461,10 +465,7 @@ const WhiteKey = styled.div`
   }
 
   @media (max-width: 600px) {
-    /* height: 20rem; */
-    width: 2rem;
-    /* margin-left: 10rem; */
-
+    width: 3rem;
     p {
       display: none;
     }
