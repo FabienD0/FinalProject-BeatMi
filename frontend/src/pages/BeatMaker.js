@@ -277,6 +277,15 @@ const Container = styled.div`
   justify-content: space-between;
   gap: 2rem;
   height: 100%;
+
+  @media (min-height: 1250px) {
+    height: 80%;
+    border: 2px solid red;
+  }
+  @media (min-height: 1450px) {
+    height: 60%;
+    border: 2px solid red;
+  }
 `;
 
 const ContainerBottom = styled.section`

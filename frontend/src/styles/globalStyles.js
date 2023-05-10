@@ -34,6 +34,7 @@ html, body, div, span, applet, object, iframe,
   }
   html {
     background-color: ${Colors.gray};
+    
   }
   body {
       line-height: 1;

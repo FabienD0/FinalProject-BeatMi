@@ -105,10 +105,6 @@ const NavigationFull = styled.nav`
   @media (max-width: 425px) {
     min-width: 6rem;
   }
-  @media (min-height: 1250px) {
-    min-height: 60vh;
-    border: 2px solid blue;
-  }
 `;
 
 const NavigationSmall = styled.div`
@@ -123,9 +119,6 @@ const NavigationSmall = styled.div`
   border-radius: 0px 45px 45px 0px;
   border-right: 1px solid rgba(255, 228, 165, 0.3);
   height: 100%;
-  @media (min-height: 1250px) {
-    min-height: 60vh;
-  }
 `;
 
 const Logo = styled.img`
