@@ -105,20 +105,27 @@ const NavigationFull = styled.nav`
   @media (max-width: 425px) {
     min-width: 6rem;
   }
+  @media (min-height: 1250px) {
+    min-height: 60vh;
+    border: 2px solid blue;
+  }
 `;
 
 const NavigationSmall = styled.div`
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1rem;
   padding: 2rem 1.5rem;
-  min-height: 100vh;
   background-color: ${Colors.primary200};
   animation: slideOut 0.5s ease-in-out;
   border-radius: 0px 45px 45px 0px;
   border-right: 1px solid rgba(255, 228, 165, 0.3);
   height: 100%;
+  @media (min-height: 1250px) {
+    min-height: 60vh;
+  }
 `;
 
 const Logo = styled.img`
