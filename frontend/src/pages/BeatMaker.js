@@ -280,11 +280,9 @@ const Container = styled.div`
 
   @media (min-height: 1250px) {
     height: 80%;
-    border: 2px solid red;
   }
   @media (min-height: 1450px) {
     height: 60%;
-    border: 2px solid red;
   }
 `;
 
