@@ -14,6 +14,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { GeneralContext, URL } from "./context/GeneralContext";
 import { addLike, removeLike } from "../utils/function";
 import { PlayerContext } from "../components/context/PlayerContext";
+import ModalLogged from "./modals/ModalLogged";
 
 const TransportBar = ({
   setIsPlaying,
@@ -38,6 +39,7 @@ const TransportBar = ({
     useContext(GeneralContext);
   const { id } = useParams();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [loggedModal, setLoggedModal] = useState("");
   const [modalCategory, setModalCategory] = useState("");
   const [isBeatSaved, setIsBeatSaved] = useState(false);
   const [beatModifyStatus, setBeatModifyStatus] = useState("");
@@ -145,6 +147,19 @@ const TransportBar = ({
       .catch((err) => console.log(err));
   };
 
+  /* Function when mouse HOVER a Button when not Logged */
+  const mouseEnterButton = (status, button) => {
+    if (!user && !id) {
+      if (status === "enter") {
+        setLoggedModal(button);
+      } else if (status === "leave") {
+        setLoggedModal("");
+      }
+    } else {
+      return;
+    }
+  };
+
   return (
     <Container isModalOpen={isModalOpen}>
       <ModalTransportBar
@@ -157,13 +172,20 @@ const TransportBar = ({
       />
       {/* Save */}
       {!isBeatModify && (
-        <ContainerSaveButton
-          onClick={handleSave}
-          modalCategory={modalCategory}
-          disabled={isBeatSaved}
+        <div
+          style={{ position: "relative" }}
+          onMouseEnter={() => mouseEnterButton("enter", "save")}
+          onMouseLeave={() => mouseEnterButton("leave", "")}
         >
-          <SaveIcon />
-        </ContainerSaveButton>
+          {loggedModal === "save" && <ModalLogged isLogged={loggedModal} />}
+          <ContainerSaveButton
+            onClick={handleSave}
+            modalCategory={modalCategory}
+            disabled={isBeatSaved || !user}
+          >
+            <SaveIcon />
+          </ContainerSaveButton>
+        </div>
       )}
       {/* Modify */}
       {isBeatModify && (
@@ -182,23 +204,36 @@ const TransportBar = ({
         {isPlaying && <StopIcon />}
       </ContainerPlayButton>
       {/* Comment */}
-      <ContainerCommentButton
-        disabled={!id || !user}
-        modalCategory={modalCategory}
-        onClick={() => handleModal("comment")}
+      <div
+        style={{ position: "relative" }}
+        onMouseEnter={() => mouseEnterButton("enter", "comments")}
+        onMouseLeave={() => mouseEnterButton("leave", "")}
       >
-        <IconComment modal={isModalOpen.toString()} />
-      </ContainerCommentButton>
-
+        {loggedModal === "comments" && <ModalLogged isLogged={loggedModal} />}
+        <ContainerCommentButton
+          disabled={!id || !user}
+          modalCategory={modalCategory}
+          onClick={() => handleModal("comment")}
+        >
+          <IconComment modal={isModalOpen.toString()} />
+        </ContainerCommentButton>
+      </div>
       {/* Like */}
-      <ContainerButtonLike
-        onClick={handleLike}
-        isliked={isBeatLiked}
-        disabled={!id || !user}
+      <div
+        style={{ position: "relative" }}
+        onMouseEnter={() => mouseEnterButton("enter", "like")}
+        onMouseLeave={() => mouseEnterButton("leave", "")}
       >
-        {!isBeatLiked && <FavoriteIcon />}
-        {isBeatLiked && <FavoriteIconFull />}
-      </ContainerButtonLike>
+        {loggedModal === "like" && <ModalLogged isLogged={loggedModal} />}
+        <ContainerButtonLike
+          onClick={handleLike}
+          isliked={isBeatLiked}
+          disabled={!id || !user}
+        >
+          {!isBeatLiked && <FavoriteIcon />}
+          {isBeatLiked && <FavoriteIconFull />}
+        </ContainerButtonLike>
+      </div>
     </Container>
   );
 };
@@ -226,6 +261,7 @@ const Container = styled.div`
 
 const ContainerButtonLike = styled.button`
   all: unset;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -292,6 +328,7 @@ const ContainerPlayButton = styled.button`
 
 const ContainerSaveButton = styled.button`
   all: unset;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -333,6 +370,7 @@ const ContainerSaveButton = styled.button`
 
 const ContainerCommentButton = styled.button`
   all: unset;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;

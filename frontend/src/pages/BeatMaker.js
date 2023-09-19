@@ -10,7 +10,7 @@ import Settings from "../components/Settings";
 import TransportBar from "../components/TransportBar";
 import HelpModal from "../components/modals/HelpModal";
 import Colors from "../utils/Colors";
-import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
+import { AiOutlinePlus } from "react-icons/ai";
 import {
   initialCellStateDrum,
   initialCellStateMelody,
